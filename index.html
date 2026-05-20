@@ -201,7 +201,10 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 
 .footer{background:var(--surface);border-top:1px solid var(--border);padding:32px 24px;text-align:center}
 .footer p{color:var(--muted);font-size:12px;line-height:1.8;max-width:700px;margin:0 auto}
+/* Mobile scroll-down hint (hidden by default, shown on phone) */
+.mobile-scroll-hint{display:none;align-items:center;justify-content:center;gap:8px;padding:11px 14px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.2);border-radius:10px;margin:10px 12px 4px;color:#38bdf8;font-size:12px;font-weight:600;text-align:center}
 
+/* ── Tablet (≤900px) ── */
 @media(max-width:900px){
   .explorer-layout,.compare-layout{grid-template-columns:1fr}
   .film-list-panel,.compare-filter-panel,.film-tech-panel{position:static}
@@ -211,6 +214,52 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
   .htr-metric-grid{grid-template-columns:1fr}.htr-yeo-grid{grid-template-columns:repeat(2,1fr)}
   .htr-tab-guide{grid-template-columns:1fr}.tech-chart-grid{grid-template-columns:1fr}
   .tech-cards{grid-template-columns:repeat(2,1fr)}
+  .cmp-row{grid-template-columns:130px 1fr 100px}
+}
+/* ── Mobile (≤600px) ── */
+@media(max-width:600px){
+  /* Page padding tighter */
+  .page-section{padding:28px 16px}
+  .hero{padding:32px 16px 28px}
+  .hero h1{font-size:26px}
+  .hero-sub{font-size:13px}
+  /* Nav tabs smaller */
+  .nav-tab{padding:10px 12px;font-size:11px}
+  /* Verdict cards: 1 column on phone */
+  .verdict-grid{grid-template-columns:1fr}
+  /* Campaign comparison bars: stack label + bars + badge vertically */
+  .cmp-row{grid-template-columns:1fr;gap:6px;padding:14px 0}
+  .cmp-label{font-size:13px}
+  .cmp-sublabel{display:inline;margin-left:6px}
+  .cmp-winner{flex-direction:row;flex-wrap:wrap;gap:6px;margin-top:2px}
+  .cmp-header{flex-direction:column;gap:8px;align-items:flex-start}
+  .cmp-peak-row{padding-left:0;margin-top:6px}
+  .cmp-bar-side:first-child .cmp-num{width:38px}
+  .cmp-bar-side:last-child  .cmp-num{width:38px}
+  /* Film explorer stats row: 2×2 grid on phone */
+  .film-stats-row{grid-template-columns:repeat(2,1fr)}
+  .film-stats-row .film-stat:nth-child(2){border-right:1px solid var(--border)}
+  .film-stats-row .film-stat:nth-child(3){border-top:1px solid var(--border)}
+  .film-stats-row .film-stat:nth-child(4){border-top:1px solid var(--border)}
+  /* Pros/cons compact */
+  .pcon-item{font-size:11px}
+  /* Yeo grid: 2 columns */
+  .htr-yeo-grid{grid-template-columns:repeat(2,1fr)}
+  /* Tech cards: 1 column */
+  .tech-cards{grid-template-columns:1fr}
+  /* Table: allow horizontal scroll, shrink font */
+  .film-table-wrap{-webkit-overflow-scrolling:touch}
+  table.ft{font-size:11px}
+  .ft td,.ft th{padding:7px 8px}
+  /* Compare filter panel: max height + scroll */
+  .compare-filter-panel{max-height:280px;overflow-y:auto}
+  /* Scroll-to-detail indicator */
+  .mobile-scroll-hint{display:flex !important}
+  /* Verdict card text tighter on small screens */
+  .vcard-val{font-size:20px}
+  .vcard-sub{font-size:11px}
+  /* Brand bar numbers — ensure they fit */
+  .cmp-num{font-size:11px}
 }
 </style>
 </head>
@@ -500,6 +549,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
         <div class="cl-item" style="margin-bottom:5px"><div class="cl-line" style="background:#f472b6;height:2px"></div><span>Emotion (Limbic)</span></div>
         <div class="cl-item"><div class="cl-line" style="background:#fbbf24;height:2px"></div><span>Attention (VAN)</span></div>
       </div>
+      <div class="mobile-scroll-hint" id="explorerScrollHint">👇 Tap a film above · scroll down to see brain signal</div>
     </div>
     <div id="filmDetail" class="film-detail">
       <div style="padding:60px 48px;text-align:center;color:var(--muted)">
@@ -778,6 +828,13 @@ function selectFilm(slug) {
   activeFilm = FILM_MAP[slug]; if (!activeFilm) return;
   document.querySelectorAll('.fl-item').forEach(el => el.classList.toggle('active', el.dataset.slug===slug));
   renderFilmDetail(activeFilm);
+  // On mobile: auto-scroll down to the film detail / video player
+  if (window.innerWidth <= 768) {
+    setTimeout(()=>{
+      const det = document.getElementById('filmDetail');
+      if (det) det.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 160);
+  }
 }
 
 function renderFilmDetail(f) {
@@ -967,6 +1024,13 @@ function updateCompareChart() {
       }
     }
   });
+  // On mobile: auto-scroll to chart after it renders
+  if (window.innerWidth <= 768) {
+    setTimeout(()=>{
+      const main = document.getElementById('compareMain');
+      if (main) main.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 220);
+  }
 }
 
 function clearCompare() {
