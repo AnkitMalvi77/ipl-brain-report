@@ -279,12 +279,12 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 
 <!-- NAV -->
 <nav class="nav-tabs">
-  <div class="nav-tab active" onclick="showSection('howto')">📖 How to Read</div>
-  <div class="nav-tab" onclick="showSection('comparison')">⚔️ Campaign Comparison</div>
-  <div class="nav-tab" onclick="showSection('explorer')">🎬 Film Explorer</div>
-  <div class="nav-tab" onclick="showSection('compare')">📊 Compare Films</div>
-  <div class="nav-tab" onclick="showSection('table')">📋 Brand Scorecard</div>
-  <div class="nav-tab" onclick="showSection('techdata')">🔬 Technical Data</div>
+  <div class="nav-tab active" data-section="howto">📖 How to Read</div>
+  <div class="nav-tab" data-section="comparison">⚔️ Campaign Comparison</div>
+  <div class="nav-tab" data-section="explorer">🎬 Film Explorer</div>
+  <div class="nav-tab" data-section="compare">📊 Compare Films</div>
+  <div class="nav-tab" data-section="table">📋 Brand Scorecard</div>
+  <div class="nav-tab" data-section="techdata">🔬 Technical Data</div>
 </nav>
 
 <!-- ═══════════════════════════════════════════════ TAB 1: HOW TO READ -->
@@ -816,10 +816,20 @@ const C26      = {"liking": 47.0, "mean_eng": 52.7, "hook": 41.5, "mean_lim": 59
 // ── Navigation ────────────────────────────────────────────────────────────────
 const SECTIONS = ['howto','comparison','explorer','compare','table','techdata'];
 function showSection(id) {
-  SECTIONS.forEach(s => document.getElementById('sec-'+s).style.display = (s===id)?'':'none');
-  document.querySelectorAll('.nav-tab').forEach((t,i) => t.classList.toggle('active', SECTIONS[i]===id));
+  SECTIONS.forEach(s => {
+    const el = document.getElementById('sec-'+s);
+    if (el) el.style.display = (s===id) ? '' : 'none';
+  });
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.section === id);
+  });
 }
 function openInExplorer(slug) { showSection('explorer'); setTimeout(()=>selectFilm(slug), 80); }
+
+// Wire up nav tabs via addEventListener (more robust than inline onclick)
+document.querySelectorAll('.nav-tab[data-section]').forEach(tab => {
+  tab.addEventListener('click', () => showSection(tab.dataset.section));
+});
 
 // ── Film Explorer ─────────────────────────────────────────────────────────────
 let activeChart=null, activeFilm=null;
