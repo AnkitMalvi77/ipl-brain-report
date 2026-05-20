@@ -192,6 +192,13 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 .l1-label{width:80px;font-weight:600}.l1-track{flex:1;height:10px;background:rgba(255,255,255,0.05);border-radius:5px;overflow:hidden}
 .l1-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#38bdf8,#818cf8)}.l1-val{width:40px;text-align:right;color:var(--muted)}
 
+/* SORTABLE TABLE */
+.ft th.sortable{cursor:pointer;user-select:none}
+.ft th.sortable:hover{color:var(--text);background:rgba(255,255,255,0.04)}
+.ft th.active-sort{color:var(--accent)}
+.ft th .sort-icon{font-size:9px;margin-left:3px;opacity:0.7}
+.ft th.active-sort .sort-icon{opacity:1}
+
 .footer{background:var(--surface);border-top:1px solid var(--border);padding:32px 24px;text-align:center}
 .footer p{color:var(--muted);font-size:12px;line-height:1.8;max-width:700px;margin:0 auto}
 
@@ -256,6 +263,32 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
     <div class="htr-yeo"><div class="htr-yeo-name" style="color:#a78bfa">💡 FPN</div><div class="htr-yeo-desc">Fronto-Parietal Network — thinking, planning, meaning-making. High = message is being understood and processed.</div></div>
     <div class="htr-yeo"><div class="htr-yeo-name" style="color:#94a3b8">💭 DMN</div><div class="htr-yeo-desc">Default Mode Network — daydreaming, mind-wandering. We want this <em>low</em>. High DMN = the viewer has mentally checked out.</div></div>
     <div class="htr-yeo" style="border-color:rgba(56,189,248,0.3)"><div class="htr-yeo-name" style="color:#38bdf8">⚡ Engagement</div><div class="htr-yeo-desc">A composite score: 0.25×Visual + 0.25×DAN + 0.20×VAN + 0.15×Limbic + 0.15×FPN − 0.05×|DMN−0.3|. The headline brain activation number.</div></div>
+  </div>
+
+  <!-- Brain Score formula -->
+  <div class="section-label" style="margin-bottom:10px">The Brain Score — How It's Calculated</div>
+  <div class="htr-intro" style="margin-bottom:28px">
+    <p><strong>Formula:</strong> Brain Score = (Global × 25% + Temporal × 45% + HPE × 30%) × Hook Multiplier × 100</p>
+    <p style="margin-top:14px">Three components feed into every Brain Score:</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px">
+      <div style="background:var(--surface2);border-radius:10px;padding:16px;border-left:3px solid #38bdf8">
+        <div style="font-size:12px;font-weight:800;color:#38bdf8;margin-bottom:6px">GLOBAL — 25%</div>
+        <div style="font-size:12px;color:#94a3b8;line-height:1.7">"What kind of content is this overall?" — Mean engagement quality, emotional depth, attention level, and how little of the film was dead zone. A baseline quality score for the whole piece.</div>
+      </div>
+      <div style="background:var(--surface2);border-radius:10px;padding:16px;border-left:3px solid #a78bfa">
+        <div style="font-size:12px;font-weight:800;color:#a78bfa;margin-bottom:6px">TEMPORAL — 45% <span style="font-size:10px;color:var(--muted)">(highest weight)</span></div>
+        <div style="font-size:12px;color:#94a3b8;line-height:1.7">"How does the brain move through the film?" — Momentum, emotional power, absorption, % of time in flow state. The <em>journey</em> matters more than the average. A film that builds scores higher than one that flatlines.</div>
+      </div>
+      <div style="background:var(--surface2);border-radius:10px;padding:16px;border-left:3px solid #fbbf24">
+        <div style="font-size:12px;font-weight:800;color:#fbbf24;margin-bottom:6px">HPE — 30%</div>
+        <div style="font-size:12px;color:#94a3b8;line-height:1.7">"Did the three critical moments land?" — Hook (opening), Peak (best single moment), Ending (close). A film must work at all three narrative anchors, not just one.</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;padding:14px 18px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:10px">
+      <span style="font-size:12px;font-weight:800;color:#f87171">⚡ Hook Multiplier — the penalty gate</span>
+      <span style="font-size:12px;color:#94a3b8;margin-left:8px">If the opening is weak, the <em>entire</em> Brain Score gets cut — regardless of how good the rest of the film is. A hook multiplier of 0.6 means a 40% penalty on the final score. This is why two films with similar Engagement can have very different Brain Scores — the one with the weaker opening gets penalised heavily.</span>
+    </div>
+    <p style="margin-top:14px;font-size:12px;color:#94a3b8">Example: <em>GOAT vs YOAT</em> scores 63.5 because Global=78%, Temporal=54%, HPE=66%, Hook Multiplier=1.0 (strong open). <em>Virat 18</em> scores only 29.1 despite similar content — its Hook Multiplier was 0.6, cutting the entire score by 40%.</p>
   </div>
 
   <!-- 5 Brand Metrics -->
@@ -521,20 +554,20 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
   <div class="section-title">All 10 Films — Every Metric</div>
   <div class="section-sub">Sorted by Engagement. Hook = first 20% of film duration (shown in seconds). Arc Score = √(Momentum × Ending). Click any film name to open in Film Explorer.</div>
   <div class="film-table-wrap">
-    <table class="ft">
+    <table class="ft" id="brandTable">
       <thead><tr>
         <th>#</th><th>Film</th><th>Camp</th>
-        <th title="Film duration in seconds.">Duration</th>
-        <th title="Brain Liking Score 0–100. Overall neural preference across the full film.">Brain Score</th>
-        <th title="Mean Engagement — average brain activation across the full film. Most comparable metric.">Engagement ↓</th>
-        <th title="Hook — brain engagement in the first 20% of the film. Window shown in seconds.">Hook (20%)</th>
-        <th title="Mean Emotion — average Limbic network activation. Comparable across films.">Mean Emo</th>
-        <th title="Peak Emotion Seconds — number of seconds where Limbic activation exceeded 75%. High-intensity emotional moments.">Peak Emo Secs</th>
-        <th title="Momentum — is brain activation rising or falling through the film? Arrow shows trajectory.">Momentum</th>
-        <th title="Arc Score = √(Momentum × Ending). Brand readiness: is the brain primed when the brand closes?">Arc Score</th>
-        <th title="YouTube like rate — real audience validation.">YT Like%</th>
+        <th class="sortable" data-col="3" title="Film duration in seconds. Click to sort.">Duration <span class="sort-icon">⇅</span></th>
+        <th class="sortable" data-col="4" title="Brain Score — weighted composite of Global + Temporal + HPE × Hook Multiplier. Click to sort.">Brain Score <span class="sort-icon">⇅</span></th>
+        <th class="sortable active-sort" data-col="5" title="Engagement — average brain activation across the full film. Click to sort.">Engagement <span class="sort-icon">▼</span></th>
+        <th class="sortable" data-col="6" title="Hook — brain engagement in first 20% of film. Click to sort.">Hook (20%) <span class="sort-icon">⇅</span></th>
+        <th class="sortable" data-col="7" title="Mean Emotion — average Limbic activation. Comparable across films. Click to sort.">Mean Emo <span class="sort-icon">⇅</span></th>
+        <th class="sortable" data-col="8" title="Peak Emotion Seconds — seconds where Limbic exceeded 75%. Click to sort.">Peak Emo Secs <span class="sort-icon">⇅</span></th>
+        <th class="sortable" data-col="9" title="Momentum — is brain energy rising or falling? Click to sort.">Momentum <span class="sort-icon">⇅</span></th>
+        <th class="sortable" data-col="10" title="Arc Score = √(Momentum × Ending). Brand readiness. Click to sort.">Arc Score <span class="sort-icon">⇅</span></th>
+        <th class="sortable" data-col="11" title="YouTube like rate. Click to sort.">YT Like% <span class="sort-icon">⇅</span></th>
       </tr></thead>
-      <tbody><tr>
+      <tbody id="brandTableBody"><tr>
 <td style="color:var(--muted);font-weight:700">1</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#eab308;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('ipl2025_v2')">Naam Mein Kya ↗</strong><br>
@@ -1066,6 +1099,55 @@ function loadTechData(slug) {
       }
     }
   });
+}
+
+// ── Brand Scorecard — sortable columns ───────────────────────────────────────
+(function() {
+  let sortCol = 5, sortAsc = false;   // default: Engagement descending
+
+  function parseSortVal(cell) {
+    const txt = cell.textContent.replace(/[↑↓→▲▼⇅✅⚠️🟢🟡🔴↗]/g,'').trim();
+    const n = parseFloat(txt.replace(/[^0-9.\-]/g,''));
+    return isNaN(n) ? -Infinity : n;
+  }
+
+  function applySort() {
+    const tbody = document.getElementById('brandTableBody');
+    if (!tbody) return;
+    const rows = [...tbody.querySelectorAll('tr')];
+    rows.sort((a,b) => {
+      const av = parseSortVal(a.cells[sortCol]);
+      const bv = parseSortVal(b.cells[sortCol]);
+      return sortAsc ? av - bv : bv - av;
+    });
+    rows.forEach((r,i) => { r.cells[0].textContent = i+1; tbody.appendChild(r); });
+
+    // Update header indicators
+    document.querySelectorAll('#brandTable th.sortable').forEach(th => {
+      const col = parseInt(th.dataset.col);
+      const icon = th.querySelector('.sort-icon');
+      if (col === sortCol) {
+        th.classList.add('active-sort');
+        icon.textContent = sortAsc ? '▲' : '▼';
+      } else {
+        th.classList.remove('active-sort');
+        icon.textContent = '⇅';
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('#brandTable th.sortable').forEach(th => {
+      th.addEventListener('click', () => {
+        const col = parseInt(th.dataset.col);
+        if (col === sortCol) { sortAsc = !sortAsc; }
+        else { sortCol = col; sortAsc = false; }
+        applySort();
+      });
+    });
+    applySort();  // apply default sort on load
+  });
+})();
 }
 </script>
 </body>
