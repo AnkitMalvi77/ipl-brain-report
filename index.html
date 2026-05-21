@@ -267,12 +267,13 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-eyebrow">Brain Intelligence Report · TRIBE v2 Neural Analysis</div>
+  <div class="hero-eyebrow">Brain Intelligence Report · Neural Ad Analysis</div>
   <h1>IPL 2025 vs IPL 2026</h1>
-  <p class="hero-sub">10 films · 5 campaigns each · Predicted brain responses mapped across 7 neural networks · 5 brand metrics</p>
+  <p class="hero-sub">15 films · IPL25, IPL26 + 5 benchmark classics · Predicted brain responses mapped across 7 neural networks · 5 brand metrics</p>
   <div class="hero-pills">
     <span class="pill pill-25">🟠 5 IPL 2025 Films</span>
     <span class="pill pill-26">🟣 5 IPL 2026 Films</span>
+    <span class="pill" style="border-color:#f59e0b;color:#f59e0b">🏆 5 Benchmark Classics</span>
     <span class="pill">📊 Per-second brain data</span><span class="pill">🎬 Video + brain graph synced</span>
   </div>
 </div>
@@ -295,53 +296,14 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 
   <!-- Intro -->
   <div class="htr-intro">
-    <p><strong>What is this?</strong> This report shows how the human brain responds to video advertising — second by second. We used <strong>TRIBE v2</strong>, an AI model trained on thousands of real fMRI brain scans (MRI recordings of people watching content), to predict how a viewer's brain would activate while watching each film. You don't need anyone in a scanner. You just need the video.</p>
-    <p><strong>What did we test?</strong> 10 IPL campaign films — 5 from 2025 and 5 from 2026 — were run through the TRIBE v2 model. The output is a per-second brain activation signal across 7 neural networks for each film. From that signal, we calculate 5 brand metrics that tell you whether a film will be noticed, felt, and remembered.</p>
+    <p><strong>What is this?</strong> This report shows how the human brain responds to video advertising — second by second. We used a proprietary AI model trained on thousands of real fMRI brain scans to predict how a viewer's brain would activate while watching each film. You don't need anyone in a scanner. You just need the video.</p>
+    <p><strong>What did we test?</strong> 10 IPL campaign films — 5 from 2025 and 5 from 2026 — plus 5 benchmark classics from Indian sports advertising. Each film was run through the model, producing a per-second brain activation signal across 7 neural networks. From that signal, we calculate 5 brand metrics that tell you whether a film will be noticed, felt, and remembered.</p>
     <p><strong>Why does this matter?</strong> Standard research (recall surveys, focus groups) measures what people <em>say</em> they felt — after the fact. Brain signals measure what they <em>actually</em> felt — in the moment. The two are often very different. This report closes that gap.</p>
   </div>
 
-  <!-- Yeo-7 Networks -->
-  <div class="section-label" style="margin-bottom:10px">The 7 Brain Networks (Yeo-7 Atlas)</div>
-  <p style="color:var(--muted);font-size:13px;margin-bottom:14px">The brain is divided into 7 functional networks. Each one activates for different types of content. TRIBE maps all 7 per second.</p>
-  <div class="htr-yeo-grid" style="margin-bottom:28px">
-    <div class="htr-yeo"><div class="htr-yeo-name" style="color:#60a5fa">👁 Visual</div><div class="htr-yeo-desc">Processes what the eye sees — motion, colour, faces on screen. High = visually stimulating.</div></div>
-    <div class="htr-yeo"><div class="htr-yeo-name" style="color:#34d399">🏃 Somotor</div><div class="htr-yeo-desc">Body and movement response — physicality, action, energy. High = kinetic, active content.</div></div>
-    <div class="htr-yeo"><div class="htr-yeo-name" style="color:#818cf8">🎯 DAN</div><div class="htr-yeo-desc">Directed Attention Network — focused concentration on a specific thing. High = content demands and gets focus.</div></div>
-    <div class="htr-yeo"><div class="htr-yeo-name" style="color:#fbbf24">⚡ VAN</div><div class="htr-yeo-desc">Ventral Attention Network — alertness, surprise, novelty. High = something unexpected just happened.</div></div>
-    <div class="htr-yeo"><div class="htr-yeo-name" style="color:#f472b6">❤️ Limbic</div><div class="htr-yeo-desc">Emotion and memory — warmth, feeling, desire, connection. The most important network for brand recall.</div></div>
-    <div class="htr-yeo"><div class="htr-yeo-name" style="color:#a78bfa">💡 FPN</div><div class="htr-yeo-desc">Fronto-Parietal Network — thinking, planning, meaning-making. High = message is being understood and processed.</div></div>
-    <div class="htr-yeo"><div class="htr-yeo-name" style="color:#94a3b8">💭 DMN</div><div class="htr-yeo-desc">Default Mode Network — daydreaming, mind-wandering. We want this <em>low</em>. High DMN = the viewer has mentally checked out.</div></div>
-    <div class="htr-yeo" style="border-color:rgba(56,189,248,0.3)"><div class="htr-yeo-name" style="color:#38bdf8">⚡ Engagement</div><div class="htr-yeo-desc">A composite score: 0.25×Visual + 0.25×DAN + 0.20×VAN + 0.15×Limbic + 0.15×FPN − 0.05×|DMN−0.3|. The headline brain activation number.</div></div>
-  </div>
-
-  <!-- Brain Score formula -->
-  <div class="section-label" style="margin-bottom:10px">The Brain Score — How It's Calculated</div>
-  <div class="htr-intro" style="margin-bottom:28px">
-    <p><strong>Formula:</strong> Brain Score = (Global × 25% + Temporal × 45% + HPE × 30%) × Hook Multiplier × 100</p>
-    <p style="margin-top:14px">Three components feed into every Brain Score:</p>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px">
-      <div style="background:var(--surface2);border-radius:10px;padding:16px;border-left:3px solid #38bdf8">
-        <div style="font-size:12px;font-weight:800;color:#38bdf8;margin-bottom:6px">GLOBAL — 25%</div>
-        <div style="font-size:12px;color:#94a3b8;line-height:1.7">"What kind of content is this overall?" — Mean engagement quality, emotional depth, attention level, and how little of the film was dead zone. A baseline quality score for the whole piece.</div>
-      </div>
-      <div style="background:var(--surface2);border-radius:10px;padding:16px;border-left:3px solid #a78bfa">
-        <div style="font-size:12px;font-weight:800;color:#a78bfa;margin-bottom:6px">TEMPORAL — 45% <span style="font-size:10px;color:var(--muted)">(highest weight)</span></div>
-        <div style="font-size:12px;color:#94a3b8;line-height:1.7">"How does the brain move through the film?" — Momentum, emotional power, absorption, % of time in flow state. The <em>journey</em> matters more than the average. A film that builds scores higher than one that flatlines.</div>
-      </div>
-      <div style="background:var(--surface2);border-radius:10px;padding:16px;border-left:3px solid #fbbf24">
-        <div style="font-size:12px;font-weight:800;color:#fbbf24;margin-bottom:6px">HPE — 30%</div>
-        <div style="font-size:12px;color:#94a3b8;line-height:1.7">"Did the three critical moments land?" — Hook (opening), Peak (best single moment), Ending (close). A film must work at all three narrative anchors, not just one.</div>
-      </div>
-    </div>
-    <div style="margin-top:16px;padding:14px 18px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:10px">
-      <span style="font-size:12px;font-weight:800;color:#f87171">⚡ Hook Multiplier — the penalty gate</span>
-      <span style="font-size:12px;color:#94a3b8;margin-left:8px">If the opening is weak, the <em>entire</em> Brain Score gets cut — regardless of how good the rest of the film is. A hook multiplier of 0.6 means a 40% penalty on the final score. This is why two films with similar Engagement can have very different Brain Scores — the one with the weaker opening gets penalised heavily.</span>
-    </div>
-    <p style="margin-top:14px;font-size:12px;color:#94a3b8">Example: <em>GOAT vs YOAT</em> scores 63.5 because Global=78%, Temporal=54%, HPE=66%, Hook Multiplier=1.0 (strong open). <em>Virat 18</em> scores only 29.1 despite similar content — its Hook Multiplier was 0.6, cutting the entire score by 40%.</p>
-  </div>
-
-  <!-- 5 Brand Metrics -->
-  <div class="section-label" style="margin-bottom:10px">The 5 Brand Metrics — Plain English</div>
+  <!-- 5 Brand Metrics — FIRST, because this is what the report is built on -->
+  <div class="section-label" style="margin-bottom:10px">How We Measure It — 5 Brand Metrics</div>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:20px">Every number in this report traces back to one of these five metrics. Here's exactly how each one is calculated and what it means for your creative.</p>
   <div class="htr-metric-grid">
     <div class="htr-card" style="border-top:3px solid #38bdf8">
       <div class="htr-card-icon">🎯</div>
@@ -349,7 +311,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
       <div class="htr-card-tagline">First impression · The skip window</div>
       <div class="htr-card-body">
         <div class="htr-card-row"><div class="htr-card-key">What:</div><div>How strongly the brain activates in the opening of the film — before a viewer can skip or scroll away.</div></div>
-        <div class="htr-card-row"><div class="htr-card-key">How:</div><div>Mean brain Engagement across the <strong>first 20% of the film's duration</strong>. A 30s film = first 6 seconds. A 60s film = first 12 seconds. This is more accurate than a fixed 5-second window because shorter and longer films earn attention differently.</div></div>
+        <div class="htr-card-row"><div class="htr-card-key">How:</div><div>Mean brain Engagement across the <strong>first 20% of the film's duration</strong>. A 30s film = first 6 seconds. A 60s film = first 12 seconds. Proportional to duration because shorter and longer films earn attention differently.</div></div>
         <div class="htr-card-row"><div class="htr-card-key">Good:</div><div>Above <strong>40%</strong> is a strong hook. Below 25% is a skip risk on paid social.</div></div>
         <div class="htr-card-row"><div class="htr-card-key">Why:</div><div>The opening window determines whether a viewer stays or leaves. Every second of engagement you lose here costs you reach.</div></div>
       </div>
@@ -359,8 +321,8 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
       <div class="htr-card-name">Engagement</div>
       <div class="htr-card-tagline">Sustained attention · Did they stay?</div>
       <div class="htr-card-body">
-        <div class="htr-card-row"><div class="htr-card-key">What:</div><div>Average brain activation across the entire film. This is the single most comparable number across all films.</div></div>
-        <div class="htr-card-row"><div class="htr-card-key">How:</div><div>Mean of the Engagement composite (formula above) across all seconds of the film.</div></div>
+        <div class="htr-card-row"><div class="htr-card-key">What:</div><div>Average brain activation across the entire film — the single most comparable number across all films.</div></div>
+        <div class="htr-card-row"><div class="htr-card-key">How:</div><div>Mean of a weighted composite: <strong>Visual + Attention + Alertness + Emotion + Thinking networks</strong>, minus a penalty when the brain drifts (DMN). Measured every second, averaged across the full runtime.</div></div>
         <div class="htr-card-row"><div class="htr-card-key">Good:</div><div>Above <strong>50%</strong> is solid. Above 55% is strong. Below 45% the brain is frequently drifting.</div></div>
         <div class="htr-card-row"><div class="htr-card-key">Why:</div><div>Every second of engagement is a second your message was received. Low engagement = expensive wasted seconds.</div></div>
       </div>
@@ -371,7 +333,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
       <div class="htr-card-tagline">Limbic activation · Did it make them feel?</div>
       <div class="htr-card-body">
         <div class="htr-card-row"><div class="htr-card-key">What:</div><div>How emotionally activated the brain was — how warm, connected, or moved the viewer felt.</div></div>
-        <div class="htr-card-row"><div class="htr-card-key">How:</div><div>Two numbers: <strong>Mean Emotion %</strong> (average Limbic activation — comparable across all films) + <strong>Peak Emotion Seconds</strong> (how many seconds the Limbic network crossed the 75% threshold — high-intensity emotional moments).</div></div>
+        <div class="htr-card-row"><div class="htr-card-key">How:</div><div>Two numbers: <strong>Mean Emotion %</strong> (average Limbic network activation across the film) + <strong>Peak Emotion Seconds</strong> (how many seconds the Limbic network crossed the 75% threshold — high-intensity emotional moments only).</div></div>
         <div class="htr-card-row"><div class="htr-card-key">Good:</div><div>Mean above <strong>55%</strong>. Peak Secs above <strong>15s</strong> for a 30–60s film is meaningful.</div></div>
         <div class="htr-card-row"><div class="htr-card-key">Why:</div><div>Emotion drives memory and brand association. You remember ads that made you feel something. High Limbic activation = higher recall and purchase consideration.</div></div>
       </div>
@@ -382,9 +344,9 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
       <div class="htr-card-tagline">Brand readiness · Does it build to a close?</div>
       <div class="htr-card-body">
         <div class="htr-card-row"><div class="htr-card-key">What:</div><div>Whether the film builds emotionally toward the end — where your brand appears.</div></div>
-        <div class="htr-card-row"><div class="htr-card-key">How:</div><div><strong>√(Momentum × Ending Score)</strong>. Momentum measures whether brain activation trends upward through the second half. Ending measures brain activation in the final 10% of the film. Arc takes the geometric mean — both halves must be strong for a high score.</div></div>
+        <div class="htr-card-row"><div class="htr-card-key">How:</div><div><strong>√(Momentum × Ending Score)</strong>. Momentum = whether the second half of the film is stronger than the first. Ending = brain activation in the final 10% of the film. Arc is the geometric mean — both must be high for a top score.</div></div>
         <div class="htr-card-row"><div class="htr-card-key">Good:</div><div>Above <strong>55</strong> is a crescendo film. Below 40 means the emotional peak came too early.</div></div>
-        <div class="htr-card-row"><div class="htr-card-key">Why:</div><div>Your brand closes the film. If the brain is cool at that moment, the brand message doesn't land. A high Arc Score = the brain is most primed exactly when your brand appears. Think of it like a concert that saves the biggest song for the finale.</div></div>
+        <div class="htr-card-row"><div class="htr-card-key">Why:</div><div>Your brand closes the film. If the brain is cool at that moment, the brand message doesn't land. High Arc = the brain is most primed exactly when your brand appears — like a concert that saves the biggest song for the finale.</div></div>
       </div>
     </div>
     <div class="htr-card" style="border-top:3px solid #fbbf24;grid-column:1/-1">
@@ -393,25 +355,39 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
       <div class="htr-card-tagline">Story trajectory · Does energy build or fade?</div>
       <div class="htr-card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
         <div>
-          <div class="htr-card-row"><div class="htr-card-key">What:</div><div>Whether the film's brain activation is rising or falling as the film progresses.</div></div>
-          <div class="htr-card-row"><div class="htr-card-key">How:</div><div>Compares brain engagement in the second half vs the first half of the film. A score above 50% means the second half is stronger — a crescendo. Below 50% means it peaked early and fades — a firecracker.</div></div>
+          <div class="htr-card-row"><div class="htr-card-key">What:</div><div>Whether the film's brain activation is rising or falling as the story progresses.</div></div>
+          <div class="htr-card-row"><div class="htr-card-key">How:</div><div>Compares mean brain engagement in the <strong>second half vs the first half</strong> of the film. Above 50% = the second half is stronger (crescendo). Below 50% = peaked early and fades (firecracker).</div></div>
         </div>
         <div>
-          <div class="htr-card-row"><div class="htr-card-key">Good:</div><div>Above <strong>50%</strong> = the film builds. Above 65% = strong crescendo arc.</div></div>
-          <div class="htr-card-row"><div class="htr-card-key">Why:</div><div>High-momentum films create anticipation. The viewer leans in as it progresses. Low-momentum films feel front-loaded — they peak early and coast, leaving the brand close on a cooling brain. Momentum is one half of the Arc Score.</div></div>
+          <div class="htr-card-row"><div class="htr-card-key">Good:</div><div>Above <strong>50%</strong> = the film builds. Above 65% = strong crescendo.</div></div>
+          <div class="htr-card-row"><div class="htr-card-key">Why:</div><div>High-momentum films create anticipation — the viewer leans in as it progresses. Low-momentum films feel front-loaded: they peak early and coast, leaving the brand close on a cooling brain.</div></div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- 7 Brain Networks — moved below metrics, kept concise -->
+  <div class="section-label" style="margin-bottom:10px;margin-top:32px">Under the Hood — The 7 Brain Networks</div>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:14px">The brain is divided into 7 functional networks, each activated by different types of content. The model tracks all 7 per second — the metrics above are built on top of these signals.</p>
+  <div class="htr-yeo-grid" style="margin-bottom:28px">
+    <div class="htr-yeo"><div class="htr-yeo-name" style="color:#60a5fa">👁 Visual</div><div class="htr-yeo-desc">Processes what the eye sees — motion, colour, faces on screen. High = visually stimulating.</div></div>
+    <div class="htr-yeo"><div class="htr-yeo-name" style="color:#34d399">🏃 Somotor</div><div class="htr-yeo-desc">Body and movement response — physicality, action, energy. High = kinetic, active content.</div></div>
+    <div class="htr-yeo"><div class="htr-yeo-name" style="color:#818cf8">🎯 Attention</div><div class="htr-yeo-desc">Directed focus — concentrated attention on a specific thing. High = content demands and gets focus.</div></div>
+    <div class="htr-yeo"><div class="htr-yeo-name" style="color:#fbbf24">⚡ Alertness</div><div class="htr-yeo-desc">Alertness, surprise, novelty response. High = something unexpected just happened.</div></div>
+    <div class="htr-yeo"><div class="htr-yeo-name" style="color:#f472b6">❤️ Emotion</div><div class="htr-yeo-desc">Emotion and memory — warmth, feeling, desire, connection. The most important network for brand recall.</div></div>
+    <div class="htr-yeo"><div class="htr-yeo-name" style="color:#a78bfa">💡 Thinking</div><div class="htr-yeo-desc">Planning, reasoning, meaning-making. High = message is being understood and processed.</div></div>
+    <div class="htr-yeo"><div class="htr-yeo-name" style="color:#94a3b8">💭 Drift</div><div class="htr-yeo-desc">Mind-wandering, daydreaming. We want this <em>low</em>. High = the viewer has mentally checked out.</div></div>
+    <div class="htr-yeo" style="border-color:rgba(56,189,248,0.3)"><div class="htr-yeo-name" style="color:#38bdf8">⚡ Engagement (composite)</div><div class="htr-yeo-desc">A weighted blend of the above: Visual, Attention, Alertness, Emotion, and Thinking networks — minus a drift penalty. This is the headline per-second activation number used in all metrics.</div></div>
+  </div>
+
   <!-- Tab guide -->
   <div class="section-label" style="margin-bottom:10px">How to Use This Report</div>
   <div class="htr-tab-guide">
-    <div class="htr-tab-card"><div class="htr-tab-icon">⚔️</div><div><div class="htr-tab-name">Campaign Comparison</div><div class="htr-tab-desc">IPL25 vs IPL26 head-to-head. 4 brand metrics side by side with pros, cons, and a strategic verdict. <em>Start here.</em></div></div></div>
+    <div class="htr-tab-card"><div class="htr-tab-icon">⚔️</div><div><div class="htr-tab-name">Campaign Comparison</div><div class="htr-tab-desc">IPL25 vs IPL26 head-to-head. Hook, Engagement, Emotion, and Arc side by side — with pros, cons, and a strategic verdict. <em>Start here.</em></div></div></div>
     <div class="htr-tab-card"><div class="htr-tab-icon">🎬</div><div><div class="htr-tab-name">Film Explorer</div><div class="htr-tab-desc">Select any film, press play. The brain graph reveals second by second as the video plays — see exactly where the brain peaks and dips.</div></div></div>
     <div class="htr-tab-card"><div class="htr-tab-icon">📊</div><div><div class="htr-tab-name">Compare Films</div><div class="htr-tab-desc">Select any 2–5 films and overlay their brain signals on one chart. Compare trend lines directly — who holds attention longer, who peaks earlier.</div></div></div>
-    <div class="htr-tab-card"><div class="htr-tab-icon">📋</div><div><div class="htr-tab-name">Brand Scorecard</div><div class="htr-tab-desc">All 10 films ranked by Engagement. Every brand metric at a glance. Click any film name to open it in Film Explorer.</div></div></div>
-    <div class="htr-tab-card"><div class="htr-tab-icon">🔬</div><div><div class="htr-tab-name">Technical Data</div><div class="htr-tab-desc">All 7 brain networks, signal source breakdown (visual / audio / language), brain zone distribution, and every computed score. For deep analysis.</div></div></div>
+    <div class="htr-tab-card"><div class="htr-tab-icon">📋</div><div><div class="htr-tab-name">Brand Scorecard</div><div class="htr-tab-desc">All films ranked by Engagement. Every brand metric at a glance. Click any film name to open it in Film Explorer.</div></div></div>
+    <div class="htr-tab-card"><div class="htr-tab-icon">🔬</div><div><div class="htr-tab-name">Technical Data</div><div class="htr-tab-desc">All 7 brain networks, signal source breakdown, brain zone distribution, and every computed score. For deep analysis.</div></div></div>
   </div>
 </div>
 
@@ -497,6 +473,8 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 </div>
   </div>
 
+  
+
   <div class="verdict-box">
     <div style="font-size:14px;font-weight:800;margin-bottom:20px">🔎 Campaign Verdict — Pros &amp; Cons</div>
     <div class="pcons-grid">
@@ -543,6 +521,9 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <div class="fl-item" data-slug="ipl2026_v4" onclick="selectFilm('ipl2026_v4')"><span class="fl-dot" style="background:#4ade80"></span><div class="fl-info"><div class="fl-name">Dadi-Nani</div><div class="fl-sub">46s · 53.7% eng · → arc</div></div><div class="fl-score" style="color:#fbbf24">48</div></div>
 <div class="fl-item" data-slug="ipl2026_v5" onclick="selectFilm('ipl2026_v5')"><span class="fl-dot" style="background:#22d3ee"></span><div class="fl-info"><div class="fl-name">Chote Kadam</div><div class="fl-sub">51s · 51.7% eng · ↓ arc</div></div><div class="fl-score" style="color:#4ade80">56</div></div>
 <div class="fl-item" data-slug="ipl2026_v2" onclick="selectFilm('ipl2026_v2')"><span class="fl-dot" style="background:#fb923c"></span><div class="fl-info"><div class="fl-name">Khelo Bindass</div><div class="fl-sub">56s · 49.2% eng · → arc</div></div><div class="fl-score" style="color:#fbbf24">45</div></div>
+      <div class="fl-divider"></div>
+      <div class="fl-camp-label" style="color:#f59e0b">🏆 Benchmarks — Best Classic Indian Ads</div>
+      
       <div style="padding:12px;margin-top:8px">
         <div style="font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">Graph Lines</div>
         <div class="cl-item" style="margin-bottom:5px"><div class="cl-line" style="background:#38bdf8;height:2.5px"></div><span>Engagement</span></div>
@@ -582,8 +563,10 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <label class="cmp-film-row" for="cb_ipl2026_v4"><input type="checkbox" class="cmp-cb" id="cb_ipl2026_v4" data-slug="ipl2026_v4" onchange="updateCompareChart()"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#4ade80;margin-right:5px"></span><span class="cfr-name">Dadi-Nani</span><span class="cfr-camp">IPL26</span><span class="cfr-score">46s · 53.7%</span></label>
 <label class="cmp-film-row" for="cb_ipl2026_v5"><input type="checkbox" class="cmp-cb" id="cb_ipl2026_v5" data-slug="ipl2026_v5" onchange="updateCompareChart()"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22d3ee;margin-right:5px"></span><span class="cfr-name">Chote Kadam</span><span class="cfr-camp">IPL26</span><span class="cfr-score">51s · 51.7%</span></label>
 <label class="cmp-film-row" for="cb_ipl2026_v2"><input type="checkbox" class="cmp-cb" id="cb_ipl2026_v2" data-slug="ipl2026_v2" onchange="updateCompareChart()"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fb923c;margin-right:5px"></span><span class="cfr-name">Khelo Bindass</span><span class="cfr-camp">IPL26</span><span class="cfr-score">56s · 49.2%</span></label>
+      <div class="cfp-camp-label" style="color:#f59e0b;margin-top:8px">🏆 Benchmarks</div>
+      
       <div style="margin-top:12px;padding:10px;background:var(--surface2);border-radius:8px;font-size:11px;color:var(--muted)">
-        Tip: Select one film from each campaign to compare IPL25 vs IPL26 directly.
+        Tip: Compare an IPL film against a benchmark to see how far it is from the gold standard.
       </div>
       <button class="cfp-clear" onclick="clearCompare()">✕ Clear all</button>
     </div>
@@ -802,8 +785,8 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 
 <!-- FOOTER -->
 <div class="footer">
-  <p><strong style="color:var(--text)">Methodology:</strong> Brain signals predicted via TRIBE v2 (Meta AI) using Yeo-7 fMRI network mapping. Per-second activation across 7 neural networks. Engagement = 0.25×Visual + 0.25×DAN + 0.20×VAN + 0.15×Limbic + 0.15×FPN − 0.05×|DMN−0.3|. Hook = mean engagement in first 20% of film. Arc Score = √(Momentum × Ending). All mean values cross-film comparable; in-film graph normalised independently.<br><br>
-  TRIBE Neuro Dashboard · <a href="https://github.com/AnkitMalvi77/ipl-brain-report" target="_blank">AnkitMalvi77/ipl-brain-report</a></p>
+  <p><strong style="color:var(--text)">Methodology:</strong> Per-second brain activation predicted via AI neural modelling trained on real fMRI data. Engagement = weighted composite of Visual, Attention, Alertness, Emotion, and Thinking networks minus drift penalty. Hook = mean engagement in first 20% of film duration. Arc Score = √(Momentum × Ending). All mean values cross-film comparable; in-film graph normalised independently.<br><br>
+  Neural Brain Report · <a href="https://github.com/AnkitMalvi77/ipl-brain-report" target="_blank">AnkitMalvi77/ipl-brain-report</a></p>
 </div>
 
 <script>
@@ -849,7 +832,9 @@ function selectFilm(slug) {
 
 function renderFilmDetail(f) {
   const camp26 = f.camp==='IPL26';
-  const campBadge = camp26 ? `<span class="film-camp-badge badge-26">🟣 IPL 2026</span>` : `<span class="film-camp-badge badge-25">🟠 IPL 2025</span>`;
+  const campBadge = f.camp==='IPL26' ? `<span class="film-camp-badge badge-26">🟣 IPL 2026</span>`
+                 : f.camp==='BENCH'  ? `<span class="film-camp-badge" style="background:rgba(245,158,11,0.18);color:#f59e0b">🏆 Benchmark</span>`
+                 : `<span class="film-camp-badge badge-25">🟠 IPL 2025</span>`;
   const sc = f.liking>=55?'#4ade80':(f.liking>=40?'#fbbf24':'#f87171');
   const hc = f.hook>=40?'#4ade80':(f.hook>=25?'#fbbf24':'#f87171');
   const ac = f.arc>=55?'#4ade80':(f.arc>=35?'#fbbf24':'#f87171');
