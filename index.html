@@ -161,6 +161,10 @@ video{width:100%;border-radius:8px;background:#000;display:block}
 .compare-table-title{font-size:13px;font-weight:700;margin-bottom:14px}
 
 /* BRAND SCORECARD */
+.sc-filter{background:transparent;border:1px solid var(--border);border-radius:20px;padding:5px 13px;font-size:11px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
+.sc-filter:hover{background:rgba(255,255,255,0.05)}
+.sc-filter.active{background:rgba(56,189,248,0.12);border-color:var(--accent);color:var(--accent)}
+.sc-count{font-size:10px;opacity:0.7;margin-left:3px}
 .film-table-wrap{overflow-x:auto}
 table.ft{width:100%;border-collapse:collapse;font-size:12.5px}
 .ft th{background:var(--surface2);color:var(--muted);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:9px 12px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;cursor:help}
@@ -614,7 +618,29 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <div id="sec-table" class="page-section" style="display:none">
   <div class="section-label">Brand Scorecard</div>
   <div class="section-title">All 23 Films — Every Metric</div>
-  <div class="section-sub">Sorted by Engagement. Hook = first 20% of film duration (shown in seconds). Arc Score = √(Momentum × Ending). Click any film name to open in Film Explorer.</div>
+  <div class="section-sub">Sorted by Ad Score. Hook = first 20% of effective duration. All metrics recalculated after removing brand-card tail. Click any film name to open in Film Explorer.</div>
+
+  <!-- Campaign filter bar -->
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px">
+    <span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Filter:</span>
+    <button class="sc-filter active" data-filter="ALL"   onclick="filterScorecard(this)">All Campaigns <span class="sc-count" id="cnt-ALL"></span></button>
+    <button class="sc-filter"        data-filter="IPL25" onclick="filterScorecard(this)" style="border-color:var(--ipl25);color:var(--ipl25)">🟠 IPL 2025 <span class="sc-count" id="cnt-IPL25"></span></button>
+    <button class="sc-filter"        data-filter="IPL26" onclick="filterScorecard(this)" style="border-color:var(--ipl26);color:var(--ipl26)">🟣 IPL 2026 <span class="sc-count" id="cnt-IPL26"></span></button>
+    <button class="sc-filter"        data-filter="PLAYOFF" onclick="filterScorecard(this)" style="border-color:#06b6d4;color:#06b6d4">🏏 Playoffs <span class="sc-count" id="cnt-PLAYOFF"></span></button>
+    <button class="sc-filter"        data-filter="BENCH"  onclick="filterScorecard(this)" style="border-color:#f59e0b;color:#f59e0b">🏆 Benchmarks <span class="sc-count" id="cnt-BENCH"></span></button>
+    <span style="margin-left:auto;font-size:11px;color:var(--muted)" id="sc-showing">Showing all 23 films</span>
+  </div>
+
+  <!-- Per-category avg strip (updates on filter) -->
+  <div id="sc-avg-strip" style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 18px;margin-bottom:16px;display:flex;gap:28px;flex-wrap:wrap">
+    <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;align-self:center">Filtered Avg →</div>
+    <div><div style="font-size:10px;color:var(--muted)">Engagement</div><div style="font-size:18px;font-weight:900;color:var(--accent)" id="avg-eng">—</div></div>
+    <div><div style="font-size:10px;color:var(--muted)">Emotion</div><div style="font-size:18px;font-weight:900;color:#f472b6" id="avg-lim">—</div></div>
+    <div><div style="font-size:10px;color:var(--muted)">Momentum</div><div style="font-size:18px;font-weight:900;color:#fbbf24" id="avg-mom">—</div></div>
+    <div><div style="font-size:10px;color:var(--muted)">Dead Zone</div><div style="font-size:18px;font-weight:900;color:#94a3b8" id="avg-dz">—</div></div>
+    <div><div style="font-size:10px;color:var(--muted)">Ad Score</div><div style="font-size:18px;font-weight:900;color:#4ade80" id="avg-ad">—</div></div>
+  </div>
+
   <div class="film-table-wrap">
     <table class="ft" id="brandTable">
       <thead><tr>
@@ -628,7 +654,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
         <th class="sortable active-sort" data-col="9" title="Ad Score = (Emotion×0.38 + Engagement×0.37 + Momentum×0.25) × Hook multiplier. Click to sort.">Ad Score <span class="sort-icon">▼</span></th>
         <th class="sortable" data-col="10" title="YouTube like rate — real-world audience sentiment proxy. Click to sort.">YT Like% <span class="sort-icon">⇅</span></th>
       </tr></thead>
-      <tbody id="brandTableBody"><tr>
+      <tbody id="brandTableBody"><tr data-camp="BENCH" data-eng="63.0" data-lim="77.0" data-mom="50.5" data-dz="0.0" data-ad="65.2">
 <td style="color:var(--muted);font-weight:700">1</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#92400e;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('bench_v6')">Mauka Mauka 30s ↗</strong><br>
@@ -642,7 +668,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#4ade80">0.0%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">65.2</td>
 <td class="num" style="color:#94a3b8">—<a href="https://youtu.be/nkvtCPgT6do" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="BENCH" data-eng="59.2" data-lim="71.7" data-mom="78.5" data-dz="6.7" data-ad="64.0">
 <td style="color:var(--muted);font-weight:700">2</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fcd34d;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('bench_v2')">Vodafone Pug ↗</strong><br>
@@ -656,7 +682,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#4ade80">6.7%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">64.0</td>
 <td class="num" style="color:#94a3b8">0.32%<a href="https://youtu.be/4EIwhPoAdV0" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="BENCH" data-eng="61.8" data-lim="69.4" data-mom="59.2" data-dz="0.0" data-ad="64.0">
 <td style="color:var(--muted);font-weight:700">3</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#78350f;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('bench_v7')">CSK vs RCB ↗</strong><br>
@@ -670,7 +696,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#4ade80">0.0%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">64.0</td>
 <td class="num" style="color:#94a3b8">—<a href="https://youtu.be/jSyPJVeH8Ps" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="BENCH" data-eng="60.3" data-lim="67.0" data-mom="45.8" data-dz="0.0" data-ad="59.2">
 <td style="color:var(--muted);font-weight:700">4</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fde68a;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('bench_v1')">Mauka Mauka ↗</strong><br>
@@ -684,7 +710,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#4ade80">0.0%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">59.2</td>
 <td class="num" style="color:#fbbf24">1.53%<a href="https://youtu.be/Za4qBpSQb9A" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="PLAYOFF" data-eng="56.6" data-lim="67.9" data-mom="90.3" data-dz="16.7" data-ad="58.9">
 <td style="color:var(--muted);font-weight:700">5</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#083344;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('playoff_v6')">PO — SW HI ↗</strong><br>
@@ -698,7 +724,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#fbbf24">16.7%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">58.9</td>
 <td class="num" style="color:#94a3b8">—</td>
-</tr><tr>
+</tr><tr data-camp="BENCH" data-eng="59.1" data-lim="55.3" data-mom="81.4" data-dz="5.5" data-ad="58.8">
 <td style="color:var(--muted);font-weight:700">6</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('bench_v3')">LePanga ↗</strong><br>
@@ -712,7 +738,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#4ade80">5.5%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">58.8</td>
 <td class="num" style="color:#94a3b8">0.65%<a href="https://youtu.be/VFrntgHUwII" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="IPL26" data-eng="55.5" data-lim="68.7" data-mom="65.7" data-dz="0.0" data-ad="58.7">
 <td style="color:var(--muted);font-weight:700">7</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fbbf24;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('ipl2026_v3')">Ab Ek Hoke ↗</strong><br>
@@ -726,7 +752,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#4ade80">0.0%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">58.7</td>
 <td class="num" style="color:#fbbf24">2.87%<a href="https://youtu.be/8B2sm8dJYmI" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="IPL26" data-eng="55.0" data-lim="61.8" data-mom="77.1" data-dz="0.0" data-ad="58.7">
 <td style="color:var(--muted);font-weight:700">8</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#4ade80;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('ipl2026_v4')">Dadi-Nani ↗</strong><br>
@@ -740,7 +766,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#4ade80">0.0%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">58.7</td>
 <td class="num" style="color:#4ade80">4.78%<a href="https://youtu.be/ufJVtZ9mktw" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="PLAYOFF" data-eng="49.9" data-lim="54.9" data-mom="89.7" data-dz="5.6" data-ad="57.4">
 <td style="color:var(--muted);font-weight:700">9</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#0891b2;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('playoff_v2')">PO — Gen (TA) ↗</strong><br>
@@ -754,7 +780,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#4ade80">5.6%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">57.4</td>
 <td class="num" style="color:#94a3b8">—</td>
-</tr><tr>
+</tr><tr data-camp="IPL25" data-eng="55.8" data-lim="69.2" data-mom="81.7" data-dz="12.7" data-ad="57.3">
 <td style="color:var(--muted);font-weight:700">10</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#eab308;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('ipl2025_v2')">Naam Mein Kya ↗</strong><br>
@@ -768,7 +794,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#fbbf24">12.7%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">57.3</td>
 <td class="num" style="color:#fbbf24">1.65%<a href="https://youtu.be/9w2Zq4wbhj4" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="PLAYOFF" data-eng="56.4" data-lim="61.3" data-mom="92.7" data-dz="27.8" data-ad="57.2">
 <td style="color:var(--muted);font-weight:700">11</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#0e7490;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('playoff_v3')">PO — RCBvGT EN ↗</strong><br>
@@ -782,7 +808,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#f87171">27.8%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">57.2</td>
 <td class="num" style="color:#94a3b8">—</td>
-</tr><tr>
+</tr><tr data-camp="PLAYOFF" data-eng="49.1" data-lim="53.6" data-mom="89.6" data-dz="5.6" data-ad="56.7">
 <td style="color:var(--muted);font-weight:700">12</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#06b6d4;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('playoff_v1')">PO — Gen (EN) ↗</strong><br>
@@ -796,7 +822,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#4ade80">5.6%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">56.7</td>
 <td class="num" style="color:#94a3b8">—</td>
-</tr><tr>
+</tr><tr data-camp="PLAYOFF" data-eng="56.4" data-lim="59.7" data-mom="90.5" data-dz="16.7" data-ad="56.3">
 <td style="color:var(--muted);font-weight:700">13</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#155e75;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('playoff_v4')">PO — RCBvGT HI ↗</strong><br>
@@ -810,7 +836,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#fbbf24">16.7%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">56.3</td>
 <td class="num" style="color:#94a3b8">—</td>
-</tr><tr>
+</tr><tr data-camp="PLAYOFF" data-eng="56.1" data-lim="59.2" data-mom="92.1" data-dz="22.2" data-ad="56.3">
 <td style="color:var(--muted);font-weight:700">14</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#164e63;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('playoff_v5')">PO — SW EN ↗</strong><br>
@@ -824,7 +850,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#fbbf24">22.2%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">56.3</td>
 <td class="num" style="color:#94a3b8">—</td>
-</tr><tr>
+</tr><tr data-camp="IPL26" data-eng="55.1" data-lim="55.3" data-mom="57.6" data-dz="0.0" data-ad="55.8">
 <td style="color:var(--muted);font-weight:700">15</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22d3ee;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('ipl2026_v5')">Chote Kadam ↗</strong><br>
@@ -838,7 +864,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#4ade80">0.0%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">55.8</td>
 <td class="num" style="color:#4ade80">3.82%<a href="https://youtu.be/UjM-CTDAPfU" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="BENCH" data-eng="52.0" data-lim="54.7" data-mom="78.3" data-dz="1.8" data-ad="55.4">
 <td style="color:var(--muted);font-weight:700">16</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#b45309;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('bench_v5')">WomenInBlue ↗</strong><br>
@@ -852,7 +878,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#4ade80">1.8%</td>
 <td class="score-cell" style="color:#4ade80;font-weight:800">55.4</td>
 <td class="num" style="color:#fbbf24">2.24%<a href="https://youtu.be/eNuH2uDCpik" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="BENCH" data-eng="49.7" data-lim="49.8" data-mom="67.5" data-dz="1.4" data-ad="54.2">
 <td style="color:var(--muted);font-weight:700">17</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#d97706;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('bench_v4')">Manoranjan Baap ↗</strong><br>
@@ -866,7 +892,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#4ade80">1.4%</td>
 <td class="score-cell" style="color:#fbbf24;font-weight:800">54.2</td>
 <td class="num" style="color:#94a3b8">0.88%<a href="https://youtu.be/AHByZLDbPiw" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="IPL26" data-eng="50.6" data-lim="57.0" data-mom="70.7" data-dz="0.0" data-ad="54.0">
 <td style="color:var(--muted);font-weight:700">18</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fb923c;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('ipl2026_v2')">Khelo Bindass ↗</strong><br>
@@ -880,7 +906,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#4ade80">0.0%</td>
 <td class="score-cell" style="color:#fbbf24;font-weight:800">54.0</td>
 <td class="num" style="color:#4ade80">3.77%<a href="https://youtu.be/iCCNPXa73fU" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="IPL25" data-eng="46.4" data-lim="59.0" data-mom="55.3" data-dz="0.0" data-ad="53.4">
 <td style="color:var(--muted);font-weight:700">19</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ec4899;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('ipl2025_v3')">GOAT vs YOAT ↗</strong><br>
@@ -894,7 +920,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#4ade80">0.0%</td>
 <td class="score-cell" style="color:#fbbf24;font-weight:800">53.4</td>
 <td class="num" style="color:#4ade80">4.49%<a href="https://youtu.be/y7iCYPDtOsU" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="IPL25" data-eng="43.1" data-lim="63.1" data-mom="86.6" data-dz="14.3" data-ad="52.3">
 <td style="color:var(--muted);font-weight:700">20</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#8b5cf6;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('ipl2025_v4')">Mom & Son ↗</strong><br>
@@ -908,7 +934,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#fbbf24">14.3%</td>
 <td class="score-cell" style="color:#fbbf24;font-weight:800">52.3</td>
 <td class="num" style="color:#fbbf24">1.78%<a href="https://youtu.be/SFYgxYNgHBI" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="IPL25" data-eng="45.7" data-lim="51.3" data-mom="66.7" data-dz="26.7" data-ad="49.4">
 <td style="color:var(--muted);font-weight:700">21</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f97316;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('ipl2025_v1')">Virat 18 ↗</strong><br>
@@ -922,7 +948,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#f87171">26.7%</td>
 <td class="score-cell" style="color:#fbbf24;font-weight:800">49.4</td>
 <td class="num" style="color:#fbbf24">2.84%<a href="https://youtu.be/ssuFq97nsts" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="IPL26" data-eng="54.1" data-lim="55.2" data-mom="29.2" data-dz="18.8" data-ad="48.3">
 <td style="color:var(--muted);font-weight:700">22</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('ipl2026_v1')">Hindustan KB ↗</strong><br>
@@ -936,7 +962,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <td class="num" style="color:#fbbf24">18.8%</td>
 <td class="score-cell" style="color:#fbbf24;font-weight:800">48.3</td>
 <td class="num" style="color:#fbbf24">2.25%<a href="https://youtu.be/T11qrrQ-Hcw" target="_blank" style="color:var(--accent);margin-left:3px;font-size:10px">↗</a></td>
-</tr><tr>
+</tr><tr data-camp="IPL25" data-eng="32.1" data-lim="42.7" data-mom="91.9" data-dz="37.5" data-ad="43.4">
 <td style="color:var(--muted);font-weight:700">23</td>
 <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#14b8a6;margin-right:6px"></span>
   <strong style="cursor:pointer;color:var(--accent)" onclick="openInExplorer('ipl2025_v5')">MI Champions ↗</strong><br>
@@ -953,7 +979,8 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 </tr></tbody>
     </table>
   </div>
-  <p style="margin-top:14px;font-size:11px;color:var(--muted)">⚠️ Film Explorer graphs are per-video normalised (peaks always reach 100% within each film). Use the table above for cross-film comparison.</p>
+  </div>
+  <p style="margin-top:14px;font-size:11px;color:var(--muted)">⚠️ Film Explorer graphs are per-video normalised (peaks always reach 100% within each film). Use the table above for cross-film comparison. All durations shown are <strong>effective</strong> (brand card removed).</p>
 </div>
 
 <!-- ═══════════════════════════════════════════════ TAB 6: DURATION LAB -->
@@ -1492,6 +1519,61 @@ function loadTechData(slug) {
     });
   }
 
+  // ── Scorecard filter ────────────────────────────────────────────────────
+  let activeCampFilter = 'ALL';
+
+  function filterScorecard(btn) {
+    activeCampFilter = btn.dataset.filter;
+    document.querySelectorAll('.sc-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilter();
+  }
+
+  function applyFilter() {
+    const rows = document.querySelectorAll('#brandTableBody tr');
+    let shown = 0, totEng=0, totLim=0, totMom=0, totDz=0, totAd=0;
+    rows.forEach(tr => {
+      const camp = tr.dataset.camp;
+      const vis  = activeCampFilter === 'ALL' || camp === activeCampFilter;
+      tr.style.display = vis ? '' : 'none';
+      if (vis) {
+        shown++;
+        totEng += parseFloat(tr.dataset.eng||0);
+        totLim += parseFloat(tr.dataset.lim||0);
+        totMom += parseFloat(tr.dataset.mom||0);
+        totDz  += parseFloat(tr.dataset.dz||0);
+        totAd  += parseFloat(tr.dataset.ad||0);
+      }
+    });
+    // Update showing label
+    const total = rows.length;
+    const label = activeCampFilter==='ALL' ? `Showing all ${total} films`
+                : `Showing ${shown} of ${total} films (${activeCampFilter})`;
+    document.getElementById('sc-showing').textContent = label;
+    // Update avg strip
+    if (shown > 0) {
+      document.getElementById('avg-eng').textContent = (totEng/shown).toFixed(1)+'%';
+      document.getElementById('avg-lim').textContent = (totLim/shown).toFixed(1)+'%';
+      document.getElementById('avg-mom').textContent = (totMom/shown).toFixed(1)+'%';
+      document.getElementById('avg-dz').textContent  = (totDz/shown).toFixed(1)+'%';
+      document.getElementById('avg-ad').textContent  = (totAd/shown).toFixed(1);
+    }
+    // Renumber visible rows
+    let n = 1;
+    rows.forEach(tr => { if (tr.style.display !== 'none') tr.cells[0].textContent = n++; });
+  }
+
+  // Count badges per category
+  function updateCounts() {
+    const rows = document.querySelectorAll('#brandTableBody tr');
+    const counts = {ALL:rows.length, IPL25:0, IPL26:0, PLAYOFF:0, BENCH:0};
+    rows.forEach(tr => { if (counts[tr.dataset.camp]!==undefined) counts[tr.dataset.camp]++; });
+    Object.entries(counts).forEach(([k,v]) => {
+      const el = document.getElementById('cnt-'+k);
+      if (el) el.textContent = '('+v+')';
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('#brandTable th.sortable').forEach(th => {
       th.addEventListener('click', () => {
@@ -1499,9 +1581,12 @@ function loadTechData(slug) {
         if (col === sortCol) { sortAsc = !sortAsc; }
         else { sortCol = col; sortAsc = false; }
         applySort();
+        applyFilter();
       });
     });
     applySort();
+    updateCounts();
+    applyFilter();
   });
 
   // ── Duration Lab charts ──────────────────────────────────────────────────
