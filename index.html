@@ -536,6 +536,9 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <div class="fl-item" data-slug="playoff_v2" onclick="selectFilm('playoff_v2')"><span class="fl-dot" style="background:#0891b2"></span><div class="fl-info"><div class="fl-name">PO — Gen (TA)</div><div class="fl-sub">18s · 49.9% eng · 54.9% emo</div></div><div class="fl-score" style="color:#4ade80">57.4</div></div>
 <div class="fl-item" data-slug="playoff_v1" onclick="selectFilm('playoff_v1')"><span class="fl-dot" style="background:#06b6d4"></span><div class="fl-info"><div class="fl-name">PO — Gen (EN)</div><div class="fl-sub">18s · 49.1% eng · 53.6% emo</div></div><div class="fl-score" style="color:#4ade80">56.7</div></div>
       <div class="fl-divider"></div>
+      <div class="fl-camp-label" style="color:#10b981">🎬 Footage-Based Promos</div>
+      
+      <div class="fl-divider"></div>
       <div class="fl-camp-label" style="color:#f59e0b">🏆 Benchmarks — Best Classic Indian Ads</div>
       <div class="fl-item" data-slug="bench_v6" onclick="selectFilm('bench_v6')"><span class="fl-dot" style="background:#92400e"></span><div class="fl-info"><div class="fl-name">Mauka Mauka 30s</div><div class="fl-sub">24s · 63.0% eng · 77.0% emo</div></div><div class="fl-score" style="color:#4ade80">65.2</div></div>
 <div class="fl-item" data-slug="bench_v7" onclick="selectFilm('bench_v7')"><span class="fl-dot" style="background:#78350f"></span><div class="fl-info"><div class="fl-name">CSK vs RCB</div><div class="fl-sub">54s · 61.8% eng · 69.4% emo</div></div><div class="fl-score" style="color:#4ade80">64.0</div></div>
@@ -590,6 +593,8 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <label class="cmp-film-row" for="cb_playoff_v5"><input type="checkbox" class="cmp-cb" id="cb_playoff_v5" data-slug="playoff_v5" onchange="updateCompareChart()"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#164e63;margin-right:5px"></span><span class="cfr-name">PO — SW EN</span><span class="cfr-camp">PLAYOFF</span><span class="cfr-score">18s · 56.1%</span></label>
 <label class="cmp-film-row" for="cb_playoff_v2"><input type="checkbox" class="cmp-cb" id="cb_playoff_v2" data-slug="playoff_v2" onchange="updateCompareChart()"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#0891b2;margin-right:5px"></span><span class="cfr-name">PO — Gen (TA)</span><span class="cfr-camp">PLAYOFF</span><span class="cfr-score">18s · 49.9%</span></label>
 <label class="cmp-film-row" for="cb_playoff_v1"><input type="checkbox" class="cmp-cb" id="cb_playoff_v1" data-slug="playoff_v1" onchange="updateCompareChart()"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#06b6d4;margin-right:5px"></span><span class="cfr-name">PO — Gen (EN)</span><span class="cfr-camp">PLAYOFF</span><span class="cfr-score">18s · 49.1%</span></label>
+      <div class="cfp-camp-label" style="color:#10b981;margin-top:8px">🎬 Footage-Based Promos</div>
+      
       <div class="cfp-camp-label" style="color:#f59e0b;margin-top:8px">🏆 Benchmarks</div>
       <label class="cmp-film-row" for="cb_bench_v6"><input type="checkbox" class="cmp-cb" id="cb_bench_v6" data-slug="bench_v6" onchange="updateCompareChart()"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#92400e;margin-right:5px"></span><span class="cfr-name">Mauka Mauka 30s</span><span class="cfr-camp">BENCH</span><span class="cfr-score">24s · 63.0%</span></label>
 <label class="cmp-film-row" for="cb_bench_v7"><input type="checkbox" class="cmp-cb" id="cb_bench_v7" data-slug="bench_v7" onchange="updateCompareChart()"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#78350f;margin-right:5px"></span><span class="cfr-name">CSK vs RCB</span><span class="cfr-camp">BENCH</span><span class="cfr-score">54s · 61.8%</span></label>
@@ -617,7 +622,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 <!-- ═══════════════════════════════════════════════ TAB 5: BRAND SCORECARD -->
 <div id="sec-table" class="page-section" style="display:none">
   <div class="section-label">Brand Scorecard</div>
-  <div class="section-title">All 23 Films — Every Metric</div>
+  <div class="section-title">All Films — Every Metric</div>
   <div class="section-sub">Sorted by Ad Score. Hook = first 20% of effective duration. All metrics recalculated after removing brand-card tail. Click any film name to open in Film Explorer.</div>
 
   <!-- Campaign filter bar -->
@@ -627,8 +632,9 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
     <button class="sc-filter" data-filter="IPL25" style="border-color:var(--ipl25);color:var(--ipl25)">🟠 IPL 2025 <span class="sc-count" id="cnt-IPL25"></span></button>
     <button class="sc-filter" data-filter="IPL26" style="border-color:var(--ipl26);color:var(--ipl26)">🟣 IPL 2026 <span class="sc-count" id="cnt-IPL26"></span></button>
     <button class="sc-filter" data-filter="PLAYOFF" style="border-color:#06b6d4;color:#06b6d4">🏏 Playoffs <span class="sc-count" id="cnt-PLAYOFF"></span></button>
+    <button class="sc-filter" data-filter="FOOTAGE" style="border-color:#10b981;color:#10b981">🎬 Footage <span class="sc-count" id="cnt-FOOTAGE"></span></button>
     <button class="sc-filter" data-filter="BENCH" style="border-color:#f59e0b;color:#f59e0b">🏆 Benchmarks <span class="sc-count" id="cnt-BENCH"></span></button>
-    <span style="margin-left:auto;font-size:11px;color:var(--muted)" id="sc-showing">Showing all 23 films</span>
+    <span style="margin-left:auto;font-size:11px;color:var(--muted)" id="sc-showing"></span>
   </div>
 
   <!-- Per-category avg strip (updates on filter) -->
@@ -1253,6 +1259,7 @@ function resetChart() {
 
 // ── Compare Films ─────────────────────────────────────────────────────────────
 let compareChart = null;
+let vaTimelineChart = null;
 
 const COMPARE_COLORS = ['#38bdf8','#f97316','#4ade80','#f472b6','#a78bfa'];
 
@@ -1260,7 +1267,7 @@ function updateCompareChart() {
   const checked = [...document.querySelectorAll('.cmp-cb:checked')].map(cb=>cb.dataset.slug);
   if (checked.length===0) {
     document.getElementById('compareMain').innerHTML = `<div class="compare-hint"><div style="font-size:36px;margin-bottom:12px">📊</div><div style="font-weight:700;font-size:15px;margin-bottom:6px">Select films on the left to begin</div><div style="font-size:12px">Tick any 2 or more films · Their brain signals overlay on one chart</div></div>`;
-    compareChart=null; return;
+    compareChart=null; vaTimelineChart=null; return;
   }
   const films = checked.map(s=>FILM_MAP[s]).filter(Boolean);
 
@@ -1352,7 +1359,19 @@ function updateCompareChart() {
       <div style="font-size:13px;font-weight:700">Brain Signal Comparison</div>
       <div style="font-size:11px;color:var(--muted)">Solid = Engagement · Dashed = Emotion (Limbic)</div>
     </div>
-    <div style="height:260px"><canvas id="compareChart"></canvas></div>
+    <div style="height:240px"><canvas id="compareChart"></canvas></div>
+
+    <div style="border-top:1px solid var(--border);margin-top:18px;padding-top:14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px">
+        <div>
+          <div style="font-size:13px;font-weight:700">👁 Visual &amp; 🎵 Audio — Second by Second</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px">
+            Visual = Yeo-7 Visual network (occipital/temporal cortex) · Audio = Somotor network (includes A1 auditory cortex) · Solid = Visual · Dashed = Audio
+          </div>
+        </div>
+      </div>
+      <div style="height:200px"><canvas id="vaTimelineChart"></canvas></div>
+    </div>
   </div>
   <div class="compare-table-wrap">
     <div class="compare-table-title">Metric Comparison</div>
@@ -1364,6 +1383,8 @@ function updateCompareChart() {
   </div>`;
 
   if (compareChart) { compareChart.destroy(); compareChart=null; }
+  if (vaTimelineChart) { vaTimelineChart.destroy(); vaTimelineChart=null; }
+
   const ctx = document.getElementById('compareChart').getContext('2d');
   const maxLen = Math.max(...films.map(f=>f.tl.length));
   const xlabels = films.find(f=>f.tl.length===maxLen).tl.map(r=>r.s);
@@ -1378,6 +1399,96 @@ function updateCompareChart() {
       }
     }
   });
+
+  // ── Visual & Audio timeline chart (Yeo-7 Visual + Somotor networks) ──────
+  const vaCtx = document.getElementById('vaTimelineChart');
+  if (vaCtx) {
+    // Build VA datasets — use tl_full which has Vi (Visual) and So (Somotor/Audio)
+    const vaDatasets = [];
+    const maxVaLen = Math.max(...films.map(f => (f.tl_full||[]).length));
+    const vaLabels = (films.find(f=>(f.tl_full||[]).length===maxVaLen)||films[0]).tl_full.map(r=>r.s);
+
+    films.forEach((f, i) => {
+      const col = COMPARE_COLORS[i % COMPARE_COLORS.length];
+      const tl = f.tl_full || [];
+      // Visual — solid line
+      vaDatasets.push({
+        label: f.short + ' Visual',
+        data: tl.map(r => +(r.Vi * 100).toFixed(1)),
+        borderColor: col,
+        backgroundColor: 'transparent',
+        borderWidth: 2,
+        tension: 0.35,
+        pointRadius: 0,
+        fill: false,
+      });
+      // Somotor/Audio — dashed line, slightly lighter
+      vaDatasets.push({
+        label: f.short + ' Audio',
+        data: tl.map(r => +(r.So * 100).toFixed(1)),
+        borderColor: col,
+        backgroundColor: 'transparent',
+        borderWidth: 1.5,
+        borderDash: [5, 4],
+        tension: 0.35,
+        pointRadius: 0,
+        fill: false,
+      });
+    });
+
+    vaTimelineChart = new Chart(vaCtx, {
+      type: 'line',
+      data: { labels: vaLabels, datasets: vaDatasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: {duration: 200},
+        plugins: {
+          legend: {
+            labels: {
+              color: '#94a3b8',
+              font: {size: 10},
+              boxWidth: 16,
+              padding: 10,
+              generateLabels: (chart) => {
+                // Only show one entry per film (solid=Visual, dashed=Audio)
+                // but annotate with V/A suffix
+                return chart.data.datasets.map((ds, i) => ({
+                  text: ds.label.replace(' Visual',' 👁').replace(' Audio',' 🎵'),
+                  strokeStyle: ds.borderColor,
+                  fillStyle: 'transparent',
+                  lineWidth: ds.borderWidth,
+                  lineDash: ds.borderDash || [],
+                  hidden: false,
+                  datasetIndex: i
+                }));
+              }
+            }
+          },
+          tooltip: {
+            backgroundColor: '#1a2234',
+            titleColor: '#f1f5f9',
+            bodyColor: '#94a3b8',
+            callbacks: {
+              label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}%`
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {color:'#475569', font:{size:10}, maxTicksLimit:12},
+            grid: {color:'rgba(255,255,255,0.04)'},
+            title: {display:true, text:'Second', color:'#475569', font:{size:10}}
+          },
+          y: {
+            min: 0, max: 100,
+            ticks: {color:'#475569', font:{size:10}, callback: v => v+'%'},
+            grid: {color:'rgba(255,255,255,0.04)'}
+          }
+        }
+      }
+    });
+  }
 
   // Modality bar chart (Visual vs Audio vs Face vs Language)
   if (avFilms.length >= 1) {
@@ -1685,7 +1796,7 @@ function loadTechData(slug) {
 
     // Pill counts
     const allRows = [...document.querySelectorAll('#brandTableBody tr')];
-    const counts = {ALL:allRows.length, IPL25:0, IPL26:0, PLAYOFF:0, BENCH:0};
+    const counts = {ALL:allRows.length, IPL25:0, IPL26:0, PLAYOFF:0, FOOTAGE:0, BENCH:0};
     allRows.forEach(tr => { if(counts[tr.dataset.camp]!==undefined) counts[tr.dataset.camp]++; });
     Object.entries(counts).forEach(([k,v]) => {
       const el=document.getElementById('cnt-'+k); if(el) el.textContent='('+v+')';
