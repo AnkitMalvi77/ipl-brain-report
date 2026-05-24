@@ -1300,23 +1300,57 @@ function updateCompareChart() {
 
   // Build comparison table
   const metricRows = [
-    ['Hook',          f=>f.hook+'%', `(first 20%)`],
-    ['Engagement',    f=>f.mean_eng+'%','avg activation'],
-    ['Emotion',       f=>f.mean_lim+'%','avg limbic'],
-    ['Momentum',      f=>f.momentum+'%','ending energy'],
-    ['Ad Score',      f=>f.ad_score.toFixed(1),'Emo×0.38 + Eng×0.37 + Mom×0.25 × Hook'],
+    ['Hook',          f=>f.hook+'%',            '(first 20% of film)'],
+    ['Engagement',    f=>f.mean_eng+'%',         'avg brain activation'],
+    ['Emotion',       f=>f.mean_lim+'%',         'avg limbic network'],
+    ['Momentum',      f=>f.momentum+'%',         'ending energy'],
+    ['Dead Zone',     f=>f.dead_zone+'%',        'mentally disengaged time'],
+    ['Ad Score',      f=>f.ad_score.toFixed(1),  'Emo×0.38 + Eng×0.37 + Mom×0.25 × Hook'],
   ];
 
-  const tableHeader = `<tr><th style="text-align:left">Metric</th>${films.map((f,i)=>`<th style="color:${COMPARE_COLORS[i%COMPARE_COLORS.length]}">${f.short}</th>`).join('')}</tr>`;
-  const tableBody = metricRows.map(([label,fn,sub])=>
-    `<tr><td>${label}<br><span style="font-size:10px;color:var(--muted)">${sub}</span></td>${films.map((f,i)=>`<td style="text-align:right;font-weight:700;color:${COMPARE_COLORS[i%COMPARE_COLORS.length]}">${fn(f)}</td>`).join('')}</tr>`
-  ).join('');
+  // Visual / Audio rows (only for films with L2 data)
+  const hasAV = films.some(f=>f.l1 && f.l1.visual!=null);
+  if (hasAV) {
+    metricRows.push(['── Modality Signals ──', f=>'', '']);
+    metricRows.push(['🎬 Visual Signal',  f=>f.l1&&f.l1.visual!=null ? f.l1.visual.toFixed(1) : '—', 'visual cortex activation']);
+    metricRows.push(['🎵 Audio Signal',   f=>f.l1&&f.l1.audio!=null  ? f.l1.audio.toFixed(1)  : '—', 'auditory processing']);
+    metricRows.push(['👤 Face Response',  f=>f.l1&&f.l1.face!=null   ? f.l1.face.toFixed(1)   : '—', 'face detection & social cue']);
+    metricRows.push(['💬 Language',       f=>f.l1&&f.l1.language!=null? f.l1.language.toFixed(1):'—','speech & text processing']);
+    metricRows.push(['⚖ Modality Driver', f=>{
+      if (!f.l1||f.l1.visual==null) return '—';
+      const d=f.l1.visual-f.l1.audio;
+      return d>8?'👁 Visual-led (+'+d.toFixed(0)+')':d<-8?'🎵 Audio-led ('+d.toFixed(0)+')':'⚖ Balanced ('+d.toFixed(0)+')';
+    }, 'which modality drives engagement']);
+  }
+
+  const tableHeader = `<tr><th style="text-align:left;min-width:160px">Metric</th>${films.map((f,i)=>`<th style="color:${COMPARE_COLORS[i%COMPARE_COLORS.length]};text-align:right">${f.short}</th>`).join('')}</tr>`;
+  const tableBody = metricRows.map(([label,fn,sub])=>{
+    const isSep = label.startsWith('──');
+    if (isSep) return `<tr><td colspan="${films.length+1}" style="padding:10px 12px 4px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;border-top:1px solid var(--border)">${label}</td></tr>`;
+    return `<tr><td>${label}<br><span style="font-size:10px;color:var(--muted)">${sub}</span></td>${films.map((f,i)=>`<td style="text-align:right;font-weight:700;color:${COMPARE_COLORS[i%COMPARE_COLORS.length]}">${fn(f)}</td>`).join('')}</tr>`;
+  }).join('');
+
+  // Modality bar chart data
+  const avFilms = films.filter(f=>f.l1&&f.l1.visual!=null);
+  const avChartHtml = avFilms.length>=1 ? `
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:16px">
+    <div style="font-size:13px;font-weight:800;margin-bottom:4px">🎬 Visual vs 🎵 Audio — Modality Contribution</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:14px">How much the visual track vs audio track drives the brain. Higher = stronger modality signal.</div>
+    <div style="height:${Math.max(120, avFilms.length*54)}px"><canvas id="avChart"></canvas></div>
+    <div style="margin-top:12px;font-size:11px;color:var(--muted)">
+      Also shown: 👤 Face Response (social visual cue) · 💬 Language (speech processing)<br>
+      <span style="color:#fbbf24">⚠ Only available for films scored in the latest pipeline runs. IPL25/26 campaign films need a rerun.</span>
+    </div>
+  </div>` : (films.some(f=>!f.l1||f.l1.visual==null) ? `
+  <div style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:10px;padding:14px;margin-top:16px;font-size:12px;color:var(--muted)">
+    ⚠️ <strong style="color:#fbbf24">Modality data not yet available</strong> for the selected films (IPL 2025/2026 campaign films). Select Benchmark or Playoff films to see Visual vs Audio breakdown.
+  </div>` : '');
 
   document.getElementById('compareMain').innerHTML = `
   <div class="compare-chart-wrap">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px">
       <div style="font-size:13px;font-weight:700">Brain Signal Comparison</div>
-      <div style="font-size:11px;color:var(--muted)">Solid = Engagement · Dashed = Emotion</div>
+      <div style="font-size:11px;color:var(--muted)">Solid = Engagement · Dashed = Emotion (Limbic)</div>
     </div>
     <div style="height:260px"><canvas id="compareChart"></canvas></div>
   </div>
@@ -1326,6 +1360,7 @@ function updateCompareChart() {
       <thead>${tableHeader}</thead>
       <tbody>${tableBody}</tbody>
     </table>
+    ${avChartHtml}
   </div>`;
 
   if (compareChart) { compareChart.destroy(); compareChart=null; }
@@ -1343,6 +1378,87 @@ function updateCompareChart() {
       }
     }
   });
+
+  // Modality bar chart (Visual vs Audio vs Face vs Language)
+  if (avFilms.length >= 1) {
+    const avCtx = document.getElementById('avChart');
+    if (avCtx) {
+      new Chart(avCtx, {
+        type: 'bar',
+        data: {
+          labels: avFilms.map(f => f.short),
+          datasets: [
+            {
+              label: '🎬 Visual',
+              data: avFilms.map(f => parseFloat(f.l1.visual.toFixed(1))),
+              backgroundColor: 'rgba(96,165,250,0.85)',
+              borderColor: 'rgba(96,165,250,1)',
+              borderWidth: 1,
+              borderRadius: 4
+            },
+            {
+              label: '🎵 Audio',
+              data: avFilms.map(f => parseFloat(f.l1.audio.toFixed(1))),
+              backgroundColor: 'rgba(251,146,60,0.85)',
+              borderColor: 'rgba(251,146,60,1)',
+              borderWidth: 1,
+              borderRadius: 4
+            },
+            {
+              label: '👤 Face',
+              data: avFilms.map(f => f.l1.face != null ? parseFloat(f.l1.face.toFixed(1)) : 0),
+              backgroundColor: 'rgba(74,222,128,0.85)',
+              borderColor: 'rgba(74,222,128,1)',
+              borderWidth: 1,
+              borderRadius: 4
+            },
+            {
+              label: '💬 Language',
+              data: avFilms.map(f => f.l1.language != null ? parseFloat(f.l1.language.toFixed(1)) : 0),
+              backgroundColor: 'rgba(167,139,250,0.85)',
+              borderColor: 'rgba(167,139,250,1)',
+              borderWidth: 1,
+              borderRadius: 4
+            }
+          ]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: {duration: 250},
+          scales: {
+            x: {
+              min: 0,
+              max: 100,
+              ticks: { color: '#64748b', font: {size: 10}, callback: v => v + '%' },
+              grid: { color: 'rgba(255,255,255,0.04)' },
+              title: { display: true, text: 'Signal Strength (%)', color: '#64748b', font: {size: 10} }
+            },
+            y: {
+              ticks: { color: '#94a3b8', font: {size: 11} },
+              grid: { color: 'rgba(255,255,255,0.04)' }
+            }
+          },
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: { color: '#94a3b8', font: {size: 11}, boxWidth: 14, padding: 14 }
+            },
+            tooltip: {
+              backgroundColor: '#1a2234',
+              titleColor: '#f1f5f9',
+              bodyColor: '#94a3b8',
+              callbacks: {
+                label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.x.toFixed(1)}%`
+              }
+            }
+          }
+        }
+      });
+    }
+  }
+
   // On mobile: auto-scroll to chart after it renders
   if (window.innerWidth <= 768) {
     setTimeout(()=>{
