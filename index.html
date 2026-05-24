@@ -1522,12 +1522,13 @@ function loadTechData(slug) {
   // ── Scorecard filter ────────────────────────────────────────────────────
   let activeCampFilter = 'ALL';
 
-  function filterScorecard(btn) {
+  // Exposed globally so onclick= attributes can reach it
+  window.filterScorecard = function(btn) {
     activeCampFilter = btn.dataset.filter;
     document.querySelectorAll('.sc-filter').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     applyFilter();
-  }
+  };
 
   function applyFilter() {
     const rows = document.querySelectorAll('#brandTableBody tr');
