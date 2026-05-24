@@ -623,11 +623,11 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
   <!-- Campaign filter bar -->
   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px">
     <span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Filter:</span>
-    <button class="sc-filter active" data-filter="ALL"   onclick="filterScorecard(this)">All Campaigns <span class="sc-count" id="cnt-ALL"></span></button>
-    <button class="sc-filter"        data-filter="IPL25" onclick="filterScorecard(this)" style="border-color:var(--ipl25);color:var(--ipl25)">🟠 IPL 2025 <span class="sc-count" id="cnt-IPL25"></span></button>
-    <button class="sc-filter"        data-filter="IPL26" onclick="filterScorecard(this)" style="border-color:var(--ipl26);color:var(--ipl26)">🟣 IPL 2026 <span class="sc-count" id="cnt-IPL26"></span></button>
-    <button class="sc-filter"        data-filter="PLAYOFF" onclick="filterScorecard(this)" style="border-color:#06b6d4;color:#06b6d4">🏏 Playoffs <span class="sc-count" id="cnt-PLAYOFF"></span></button>
-    <button class="sc-filter"        data-filter="BENCH"  onclick="filterScorecard(this)" style="border-color:#f59e0b;color:#f59e0b">🏆 Benchmarks <span class="sc-count" id="cnt-BENCH"></span></button>
+    <button class="sc-filter active" data-filter="ALL">All Campaigns <span class="sc-count" id="cnt-ALL"></span></button>
+    <button class="sc-filter" data-filter="IPL25" style="border-color:var(--ipl25);color:var(--ipl25)">🟠 IPL 2025 <span class="sc-count" id="cnt-IPL25"></span></button>
+    <button class="sc-filter" data-filter="IPL26" style="border-color:var(--ipl26);color:var(--ipl26)">🟣 IPL 2026 <span class="sc-count" id="cnt-IPL26"></span></button>
+    <button class="sc-filter" data-filter="PLAYOFF" style="border-color:#06b6d4;color:#06b6d4">🏏 Playoffs <span class="sc-count" id="cnt-PLAYOFF"></span></button>
+    <button class="sc-filter" data-filter="BENCH" style="border-color:#f59e0b;color:#f59e0b">🏆 Benchmarks <span class="sc-count" id="cnt-BENCH"></span></button>
     <span style="margin-left:auto;font-size:11px;color:var(--muted)" id="sc-showing">Showing all 23 films</span>
   </div>
 
@@ -1519,75 +1519,73 @@ function loadTechData(slug) {
     });
   }
 
-  // ── Scorecard filter ────────────────────────────────────────────────────
-  let activeCampFilter = 'ALL';
-
-  // Exposed globally so onclick= attributes can reach it
-  window.filterScorecard = function(btn) {
-    activeCampFilter = btn.dataset.filter;
-    document.querySelectorAll('.sc-filter').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    applyFilter();
-  };
-
-  function applyFilter() {
-    const rows = document.querySelectorAll('#brandTableBody tr');
-    let shown = 0, totEng=0, totLim=0, totMom=0, totDz=0, totAd=0;
-    rows.forEach(tr => {
-      const camp = tr.dataset.camp;
-      const vis  = activeCampFilter === 'ALL' || camp === activeCampFilter;
-      tr.style.display = vis ? '' : 'none';
-      if (vis) {
-        shown++;
-        totEng += parseFloat(tr.dataset.eng||0);
-        totLim += parseFloat(tr.dataset.lim||0);
-        totMom += parseFloat(tr.dataset.mom||0);
-        totDz  += parseFloat(tr.dataset.dz||0);
-        totAd  += parseFloat(tr.dataset.ad||0);
-      }
-    });
-    // Update showing label
-    const total = rows.length;
-    const label = activeCampFilter==='ALL' ? `Showing all ${total} films`
-                : `Showing ${shown} of ${total} films (${activeCampFilter})`;
-    document.getElementById('sc-showing').textContent = label;
-    // Update avg strip
-    if (shown > 0) {
-      document.getElementById('avg-eng').textContent = (totEng/shown).toFixed(1)+'%';
-      document.getElementById('avg-lim').textContent = (totLim/shown).toFixed(1)+'%';
-      document.getElementById('avg-mom').textContent = (totMom/shown).toFixed(1)+'%';
-      document.getElementById('avg-dz').textContent  = (totDz/shown).toFixed(1)+'%';
-      document.getElementById('avg-ad').textContent  = (totAd/shown).toFixed(1);
-    }
-    // Renumber visible rows
-    let n = 1;
-    rows.forEach(tr => { if (tr.style.display !== 'none') tr.cells[0].textContent = n++; });
-  }
-
-  // Count badges per category
-  function updateCounts() {
-    const rows = document.querySelectorAll('#brandTableBody tr');
-    const counts = {ALL:rows.length, IPL25:0, IPL26:0, PLAYOFF:0, BENCH:0};
-    rows.forEach(tr => { if (counts[tr.dataset.camp]!==undefined) counts[tr.dataset.camp]++; });
-    Object.entries(counts).forEach(([k,v]) => {
-      const el = document.getElementById('cnt-'+k);
-      if (el) el.textContent = '('+v+')';
-    });
-  }
-
   document.addEventListener('DOMContentLoaded', () => {
+    // ── Sort ──────────────────────────────────────────────────────────────
     document.querySelectorAll('#brandTable th.sortable').forEach(th => {
       th.addEventListener('click', () => {
         const col = parseInt(th.dataset.col);
         if (col === sortCol) { sortAsc = !sortAsc; }
         else { sortCol = col; sortAsc = false; }
         applySort();
-        applyFilter();
+        runFilter();
       });
     });
     applySort();
-    updateCounts();
-    applyFilter();
+
+    // ── Filter ────────────────────────────────────────────────────────────
+    let activeFilter = 'ALL';
+
+    function runFilter() {
+      const rows = [...document.querySelectorAll('#brandTableBody tr')];
+      let shown=0, eng=0, lim=0, mom=0, dz=0, ad=0;
+      rows.forEach(tr => {
+        const match = activeFilter==='ALL' || tr.dataset.camp===activeFilter;
+        tr.style.display = match ? '' : 'none';
+        if (match) {
+          shown++;
+          eng += parseFloat(tr.dataset.eng||0);
+          lim += parseFloat(tr.dataset.lim||0);
+          mom += parseFloat(tr.dataset.mom||0);
+          dz  += parseFloat(tr.dataset.dz||0);
+          ad  += parseFloat(tr.dataset.ad||0);
+        }
+      });
+      // Renumber
+      let n=1; rows.forEach(tr => { if(tr.style.display!=='none') tr.cells[0].textContent=n++; });
+      // Showing label
+      const total = rows.length;
+      const lbl = activeFilter==='ALL' ? 'Showing all '+total+' films'
+                  : 'Showing '+shown+'/'+total+' — '+activeFilter;
+      document.getElementById('sc-showing').textContent = lbl;
+      // Averages strip
+      if (shown>0) {
+        document.getElementById('avg-eng').textContent=(eng/shown).toFixed(1)+'%';
+        document.getElementById('avg-lim').textContent=(lim/shown).toFixed(1)+'%';
+        document.getElementById('avg-mom').textContent=(mom/shown).toFixed(1)+'%';
+        document.getElementById('avg-dz').textContent=(dz/shown).toFixed(1)+'%';
+        document.getElementById('avg-ad').textContent=(ad/shown).toFixed(1);
+      }
+    }
+
+    // Pill counts
+    const allRows = [...document.querySelectorAll('#brandTableBody tr')];
+    const counts = {ALL:allRows.length, IPL25:0, IPL26:0, PLAYOFF:0, BENCH:0};
+    allRows.forEach(tr => { if(counts[tr.dataset.camp]!==undefined) counts[tr.dataset.camp]++; });
+    Object.entries(counts).forEach(([k,v]) => {
+      const el=document.getElementById('cnt-'+k); if(el) el.textContent='('+v+')';
+    });
+
+    // Filter pill click
+    document.querySelectorAll('.sc-filter').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeFilter = btn.dataset.filter;
+        document.querySelectorAll('.sc-filter').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        runFilter();
+      });
+    });
+
+    runFilter();
   });
 
   // ── Duration Lab charts ──────────────────────────────────────────────────
