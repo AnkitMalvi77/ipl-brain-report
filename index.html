@@ -208,6 +208,53 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 /* Mobile scroll-down hint (hidden by default, shown on phone) */
 .mobile-scroll-hint{display:none;align-items:center;justify-content:center;gap:8px;padding:11px 14px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.2);border-radius:10px;margin:10px 12px 4px;color:#38bdf8;font-size:12px;font-weight:600;text-align:center}
 
+/* ─────────────────────────────────────── INTRO TAB ── */
+.intro-hero{text-align:center;padding:52px 24px 44px;background:radial-gradient(ellipse at 50% 0%,rgba(99,102,241,0.12) 0%,transparent 70%);border:1px solid rgba(99,102,241,0.18);border-radius:18px;margin-bottom:28px;position:relative;overflow:hidden}
+.intro-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236366f1' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.intro-eyebrow{display:inline-block;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.35);border-radius:100px;padding:5px 18px;font-size:10.5px;font-weight:700;color:#818cf8;letter-spacing:.08em;text-transform:uppercase;margin-bottom:22px}
+.intro-hero-title{font-size:34px;font-weight:900;line-height:1.22;color:#f1f5f9;margin:0 0 18px;letter-spacing:-.02em}
+.intro-hero-title span{color:#818cf8}
+.intro-hero-sub{font-size:14px;color:#94a3b8;line-height:1.75;max-width:640px;margin:0 auto 28px}
+.intro-hero-cta{display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.4);border-radius:8px;padding:10px 22px;font-size:12px;font-weight:700;color:#a5b4fc;cursor:pointer;transition:all .15s}
+.intro-hero-cta:hover{background:rgba(99,102,241,0.28);color:#e0e7ff}
+
+/* Pipeline */
+.pipe-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:24px}
+.pipe-heading{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:20px;text-align:center}
+.pipe-flow{display:flex;align-items:stretch;gap:0}
+.pipe-box{flex:1;background:var(--bg);border:1.5px solid;border-radius:10px;padding:14px 8px 12px;text-align:center;position:relative;min-width:0}
+.pipe-num{width:24px;height:24px;border-radius:50%;font-size:10px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.pipe-icon{font-size:20px;margin-bottom:7px;line-height:1}
+.pipe-title{font-size:10px;font-weight:800;letter-spacing:.04em;margin-bottom:5px;line-height:1.3}
+.pipe-desc{font-size:8.5px;color:var(--muted);line-height:1.55}
+.pipe-arrow{flex-shrink:0;width:26px;display:flex;align-items:center;justify-content:center;color:#334155;font-size:16px;margin:0 -1px}
+.pipe-networks{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+.pipe-net-chip{border:1px solid;border-radius:100px;padding:3px 10px;font-size:9px;font-weight:700;letter-spacing:.04em}
+
+/* Stats row */
+.intro-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.intro-stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 12px;text-align:center}
+.intro-stat-num{font-size:30px;font-weight:900;line-height:1}
+.intro-stat-label{font-size:9.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-top:5px}
+
+/* Tab guide */
+.intro-guide-heading{font-size:13px;font-weight:800;margin-bottom:14px}
+.intro-guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:8px}
+.intro-guide-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;transition:border-color .18s,background .18s;text-align:left}
+.intro-guide-card:hover{border-color:#6366f1;background:rgba(99,102,241,0.06)}
+.intro-guide-icon{font-size:22px;margin-bottom:8px}
+.intro-guide-name{font-size:12px;font-weight:800;margin-bottom:5px}
+.intro-guide-desc{font-size:11px;color:var(--muted);line-height:1.55}
+.intro-guide-link{font-size:10.5px;font-weight:700;color:#6366f1;margin-top:8px;display:block}
+
+@media(max-width:900px){
+  .intro-stats{grid-template-columns:repeat(2,1fr)}
+  .intro-guide-grid{grid-template-columns:repeat(2,1fr)}
+  .pipe-flow{flex-direction:column;gap:8px}
+  .pipe-arrow{transform:rotate(90deg);width:100%;height:16px}
+  .intro-hero-title{font-size:24px}
+}
+
 /* ── Tablet (≤900px) ── */
 @media(max-width:900px){
   .explorer-layout,.compare-layout{grid-template-columns:1fr}
@@ -285,7 +332,8 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
 
 <!-- NAV -->
 <nav class="nav-tabs">
-  <div class="nav-tab active" data-section="summary">📋 Summary</div>
+  <div class="nav-tab active" data-section="intro">🧠 About</div>
+  <div class="nav-tab" data-section="summary">📋 Summary</div>
   <div class="nav-tab" data-section="table">🏆 Brand Scorecard</div>
   <div class="nav-tab" data-section="explorer">🎬 Film Explorer</div>
   <div class="nav-tab" data-section="compare">📊 Compare Films</div>
@@ -294,8 +342,171 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
   <div class="nav-tab" data-section="techdata">🔬 Technical Data</div>
 </nav>
 
+<!-- ═══════════════════════════════════════════════ TAB: INTRO / ABOUT -->
+<div id="sec-intro" class="page-section">
+
+  <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+  <div class="intro-hero">
+    <div class="intro-eyebrow">IPL 2026 · Creative Brain Intelligence · TRIBE v2</div>
+    <h1 class="intro-hero-title">Before anyone watched these ads,<br><span>we asked the brain.</span></h1>
+    <p class="intro-hero-sub">
+      32 IPL promos scored using TRIBE — Meta AI's model trained on thousands of real fMRI brain scans.
+      For every second of every film, we mapped which of 7 brain networks activated, and by how much.
+      This report turns that neural signal into 5 brand metrics that predict whether an ad will be
+      <strong style="color:#e2e8f0">noticed</strong>, <strong style="color:#e2e8f0">felt</strong>, and <strong style="color:#e2e8f0">remembered</strong>.
+    </p>
+    <div class="intro-hero-cta" onclick="showSection('summary')">
+      See the full summary &nbsp;→
+    </div>
+  </div>
+
+  <!-- ── STATS ROW ─────────────────────────────────────────────────────────── -->
+  <div class="intro-stats">
+    <div class="intro-stat">
+      <div class="intro-stat-num" style="color:#818cf8">32</div>
+      <div class="intro-stat-label">Films Analyzed</div>
+    </div>
+    <div class="intro-stat">
+      <div class="intro-stat-num" style="color:#38bdf8">7</div>
+      <div class="intro-stat-label">Brain Networks Tracked</div>
+    </div>
+    <div class="intro-stat">
+      <div class="intro-stat-num" style="color:#4ade80">1,114</div>
+      <div class="intro-stat-label">Seconds of Brain Data</div>
+    </div>
+    <div class="intro-stat">
+      <div class="intro-stat-num" style="color:#fb923c">5</div>
+      <div class="intro-stat-label">Brand Metrics per Film</div>
+    </div>
+  </div>
+
+  <!-- ── PIPELINE ──────────────────────────────────────────────────────────── -->
+  <div class="pipe-wrap">
+    <div class="pipe-heading">The TRIBE Pipeline — How a video becomes a brain score</div>
+    <div class="pipe-flow">
+
+      <div class="pipe-box" style="border-color:#3b82f6">
+        <div class="pipe-num" style="background:#3b82f6">1</div>
+        <div class="pipe-icon">🎬</div>
+        <div class="pipe-title" style="color:#3b82f6">VIDEO INPUT</div>
+        <div class="pipe-desc">Any MP4 · 20 fps · HD<br>26 IPL promos &amp; benchmarks</div>
+      </div>
+
+      <div class="pipe-arrow">›</div>
+
+      <div class="pipe-box" style="border-color:#8b5cf6">
+        <div class="pipe-num" style="background:#8b5cf6">2</div>
+        <div class="pipe-icon">🧠</div>
+        <div class="pipe-title" style="color:#8b5cf6">TRIBE v2 MODEL</div>
+        <div class="pipe-desc">Meta AI · fMRI-trained<br>20,484 cortical vertices/sec</div>
+      </div>
+
+      <div class="pipe-arrow">›</div>
+
+      <div class="pipe-box" style="border-color:#14b8a6">
+        <div class="pipe-num" style="background:#14b8a6">3</div>
+        <div class="pipe-icon">🔬</div>
+        <div class="pipe-title" style="color:#14b8a6">YEO-7 NETWORKS</div>
+        <div class="pipe-desc">7 functional brain regions<br>mapped per second, per film</div>
+      </div>
+
+      <div class="pipe-arrow">›</div>
+
+      <div class="pipe-box" style="border-color:#f97316">
+        <div class="pipe-num" style="background:#f97316">4</div>
+        <div class="pipe-icon">📊</div>
+        <div class="pipe-title" style="color:#f97316">BRAND METRICS</div>
+        <div class="pipe-desc">Hook · Engagement · Emotion<br>Arc Score · Momentum</div>
+      </div>
+
+      <div class="pipe-arrow">›</div>
+
+      <div class="pipe-box" style="border-color:#22c55e">
+        <div class="pipe-num" style="background:#22c55e">5</div>
+        <div class="pipe-icon">📋</div>
+        <div class="pipe-title" style="color:#22c55e">IPL BRAIN REPORT</div>
+        <div class="pipe-desc">Per-film scores · Timeline<br>Comparative dashboard</div>
+      </div>
+
+    </div>
+
+    <!-- Network chips -->
+    <div class="pipe-networks">
+      <span style="font-size:10px;color:var(--muted);font-weight:600;margin-right:4px;line-height:24px">7 networks →</span>
+      <span class="pipe-net-chip" style="border-color:#60a5fa;color:#60a5fa">Visual</span>
+      <span class="pipe-net-chip" style="border-color:#34d399;color:#34d399">Somotor</span>
+      <span class="pipe-net-chip" style="border-color:#818cf8;color:#818cf8">DAN</span>
+      <span class="pipe-net-chip" style="border-color:#fbbf24;color:#fbbf24">VAN</span>
+      <span class="pipe-net-chip" style="border-color:#f472b6;color:#f472b6">Limbic</span>
+      <span class="pipe-net-chip" style="border-color:#a78bfa;color:#a78bfa">FPN</span>
+      <span class="pipe-net-chip" style="border-color:#94a3b8;color:#94a3b8">DMN</span>
+    </div>
+  </div>
+
+  <!-- ── WHAT YOU CAN EXPLORE ───────────────────────────────────────────────── -->
+  <div class="intro-guide-heading">What you can explore in this report</div>
+  <div class="intro-guide-grid">
+
+    <div class="intro-guide-card" onclick="showSection('summary')">
+      <div class="intro-guide-icon">📋</div>
+      <div class="intro-guide-name">Summary</div>
+      <div class="intro-guide-desc">Your one-page briefing. Top 5 films, category rankings, key insights across all 32 promos, and strategic recommendations.</div>
+      <span class="intro-guide-link">Open Summary →</span>
+    </div>
+
+    <div class="intro-guide-card" onclick="showSection('table')">
+      <div class="intro-guide-icon">🏆</div>
+      <div class="intro-guide-name">Brand Scorecard</div>
+      <div class="intro-guide-desc">All 32 films ranked by Brain Score. Every metric at a glance — Hook, Engagement, Emotion, Arc, Momentum. Click any film to explore it.</div>
+      <span class="intro-guide-link">Open Scorecard →</span>
+    </div>
+
+    <div class="intro-guide-card" onclick="showSection('explorer')">
+      <div class="intro-guide-icon">🎬</div>
+      <div class="intro-guide-name">Film Explorer</div>
+      <div class="intro-guide-desc">Select any film and press play. The brain signal graph reveals in real time as the video plays — see exactly where attention peaks and drops.</div>
+      <span class="intro-guide-link">Open Explorer →</span>
+    </div>
+
+    <div class="intro-guide-card" onclick="showSection('compare')">
+      <div class="intro-guide-icon">📊</div>
+      <div class="intro-guide-name">Compare Films</div>
+      <div class="intro-guide-desc">Overlay any 2–5 films on one chart. Compare brain signal trend lines — who holds attention longer, who starts stronger, who builds better.</div>
+      <span class="intro-guide-link">Open Compare →</span>
+    </div>
+
+    <div class="intro-guide-card" onclick="showSection('duration')">
+      <div class="intro-guide-icon">⏱</div>
+      <div class="intro-guide-name">Duration Lab</div>
+      <div class="intro-guide-desc">Does length matter? Compare 20s vs 30s vs 60s films on Hook, Engagement and Arc. Find the optimal duration for each placement type.</div>
+      <span class="intro-guide-link">Open Duration Lab →</span>
+    </div>
+
+    <div class="intro-guide-card" onclick="showSection('howto')">
+      <div class="intro-guide-icon">📖</div>
+      <div class="intro-guide-name">How to Read</div>
+      <div class="intro-guide-desc">New to brain data? This tab explains every metric — what it measures, how it's calculated, and what a good score looks like for your creative.</div>
+      <span class="intro-guide-link">Read the Guide →</span>
+    </div>
+
+  </div>
+
+  <!-- ── BOTTOM TEASER ─────────────────────────────────────────────────────── -->
+  <div style="margin-top:24px;background:linear-gradient(135deg,rgba(99,102,241,0.07),rgba(20,184,166,0.07));border:1px solid rgba(99,102,241,0.18);border-radius:12px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px">
+    <div>
+      <div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Top performer in this analysis</div>
+      <div style="font-size:18px;font-weight:900;color:#e2e8f0">Fearless Prodigies II &nbsp;<span style="font-size:14px;color:#4ade80;font-weight:700">68.6 Brain Score</span></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:3px">Benchmark average is 44.7 · IPL 2026 average is 47.0</div>
+    </div>
+    <div onclick="showSection('summary')" style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.4);border-radius:8px;padding:10px 24px;font-size:12px;font-weight:700;color:#a5b4fc;cursor:pointer;white-space:nowrap">
+      View full analysis →
+    </div>
+  </div>
+
+</div>
+
 <!-- ═══════════════════════════════════════════════ TAB 0: EXECUTIVE SUMMARY -->
-<div id="sec-summary" class="page-section">
+<div id="sec-summary" class="page-section" style="display:none">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:8px">
     <div>
       <div class="section-label">TRIBE Brain Intelligence</div>
@@ -1406,7 +1617,7 @@ const C25      = {"liking": 39.1, "mean_eng": 44.6, "hook": 26.6, "mean_lim": 57
 const C26      = {"liking": 47.0, "mean_eng": 54.1, "hook": 40.6, "mean_lim": 59.6, "lim_high": 18.4, "arc": 54.1, "momentum": 60.1, "end_score": 49.0, "mean_van": 54.9};
 
 // ── Navigation ────────────────────────────────────────────────────────────────
-const SECTIONS = ['summary','table','explorer','compare','howto','duration','techdata'];
+const SECTIONS = ['intro','summary','table','explorer','compare','howto','duration','techdata'];
 function showSection(id) {
   SECTIONS.forEach(s => {
     const el = document.getElementById('sec-'+s);
