@@ -499,40 +499,58 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
   </div>
 
   <!-- ── THE 5 METRICS ─────────────────────────────────────────────────────── -->
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:20px">
-    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#f97316;margin-bottom:4px">Scoring Layer</div>
-    <div style="font-size:13px;font-weight:800;color:#e2e8f0;margin-bottom:14px">5 brand metrics derived from the 7 networks</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:20px">
+    <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#f97316">Scoring Layer</div>
+      <div style="font-size:12px;font-weight:700;color:#e2e8f0">— 5 brand metrics derived from the 7 networks</div>
+    </div>
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
-      <div style="border:1px solid rgba(56,189,248,0.3);border-radius:8px;padding:14px;background:rgba(56,189,248,0.04)">
-        <div style="font-size:18px;margin-bottom:6px">🎯</div>
-        <div style="font-size:11px;font-weight:800;color:#38bdf8;margin-bottom:4px">Hook</div>
-        <div style="font-size:9.5px;color:#94a3b8;line-height:1.5">Engagement in the opening window (first 20% of runtime). The skip decision happens here.</div>
-        <div style="font-size:9px;color:#475569;margin-top:6px;font-style:italic">DAN + VAN + Visual</div>
+
+      <div style="border:1px solid rgba(56,189,248,0.3);border-radius:8px;padding:14px 12px;background:rgba(56,189,248,0.04)">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span style="font-size:20px;line-height:1">🎯</span>
+          <span style="font-size:13px;font-weight:800;color:#38bdf8">Hook</span>
+        </div>
+        <div style="font-size:10px;color:#cbd5e1;font-weight:600;margin-bottom:8px">First 20% of runtime</div>
+        <div style="font-size:9px;color:#475569;font-style:italic">DAN · VAN · Visual</div>
       </div>
-      <div style="border:1px solid rgba(251,191,36,0.3);border-radius:8px;padding:14px;background:rgba(251,191,36,0.04)">
-        <div style="font-size:18px;margin-bottom:6px">💡</div>
-        <div style="font-size:11px;font-weight:800;color:#fbbf24;margin-bottom:4px">Engagement</div>
-        <div style="font-size:9.5px;color:#94a3b8;line-height:1.5">Sustained brain activation across the full runtime. Every second the brain is present.</div>
-        <div style="font-size:9px;color:#475569;margin-top:6px;font-style:italic">Weighted composite of all 7</div>
+
+      <div style="border:1px solid rgba(251,191,36,0.3);border-radius:8px;padding:14px 12px;background:rgba(251,191,36,0.04)">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span style="font-size:20px;line-height:1">💡</span>
+          <span style="font-size:13px;font-weight:800;color:#fbbf24">Engagement</span>
+        </div>
+        <div style="font-size:10px;color:#cbd5e1;font-weight:600;margin-bottom:8px">Sustained attention, full runtime</div>
+        <div style="font-size:9px;color:#475569;font-style:italic">Weighted · all 7 networks</div>
       </div>
-      <div style="border:1px solid rgba(244,114,182,0.3);border-radius:8px;padding:14px;background:rgba(244,114,182,0.04)">
-        <div style="font-size:18px;margin-bottom:6px">❤️</div>
-        <div style="font-size:11px;font-weight:800;color:#f472b6;margin-bottom:4px">Emotion</div>
-        <div style="font-size:9.5px;color:#94a3b8;line-height:1.5">Limbic network activation — warmth, feeling, connection. Drives brand memory and recall.</div>
-        <div style="font-size:9px;color:#475569;margin-top:6px;font-style:italic">Limbic + Social</div>
+
+      <div style="border:1px solid rgba(244,114,182,0.3);border-radius:8px;padding:14px 12px;background:rgba(244,114,182,0.04)">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span style="font-size:20px;line-height:1">❤️</span>
+          <span style="font-size:13px;font-weight:800;color:#f472b6">Emotion</span>
+        </div>
+        <div style="font-size:10px;color:#cbd5e1;font-weight:600;margin-bottom:8px">Limbic activation → brand recall</div>
+        <div style="font-size:9px;color:#475569;font-style:italic">Limbic · FPN · Social</div>
       </div>
-      <div style="border:1px solid rgba(167,139,250,0.3);border-radius:8px;padding:14px;background:rgba(167,139,250,0.04)">
-        <div style="font-size:18px;margin-bottom:6px">📈</div>
-        <div style="font-size:11px;font-weight:800;color:#a78bfa;margin-bottom:4px">Arc Score</div>
-        <div style="font-size:9.5px;color:#94a3b8;line-height:1.5">Does the film build toward the brand close? √(Momentum × Ending). Predicts brand recall.</div>
-        <div style="font-size:9px;color:#475569;margin-top:6px;font-style:italic">Temporal trajectory</div>
+
+      <div style="border:1px solid rgba(167,139,250,0.3);border-radius:8px;padding:14px 12px;background:rgba(167,139,250,0.04)">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span style="font-size:20px;line-height:1">📈</span>
+          <span style="font-size:13px;font-weight:800;color:#a78bfa">Arc Score</span>
+        </div>
+        <div style="font-size:10px;color:#cbd5e1;font-weight:600;margin-bottom:8px">Builds to the brand close?</div>
+        <div style="font-size:9px;color:#475569;font-style:italic">√(Momentum × Ending)</div>
       </div>
-      <div style="border:1px solid rgba(52,211,153,0.3);border-radius:8px;padding:14px;background:rgba(52,211,153,0.04)">
-        <div style="font-size:18px;margin-bottom:6px">🚀</div>
-        <div style="font-size:11px;font-weight:800;color:#34d399;margin-bottom:4px">Momentum</div>
-        <div style="font-size:9.5px;color:#94a3b8;line-height:1.5">Second half stronger than first? Crescendo films outperform firecracker films on memory.</div>
-        <div style="font-size:9px;color:#475569;margin-top:6px;font-style:italic">2nd half vs 1st half</div>
+
+      <div style="border:1px solid rgba(52,211,153,0.3);border-radius:8px;padding:14px 12px;background:rgba(52,211,153,0.04)">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span style="font-size:20px;line-height:1">🚀</span>
+          <span style="font-size:13px;font-weight:800;color:#34d399">Momentum</span>
+        </div>
+        <div style="font-size:10px;color:#cbd5e1;font-weight:600;margin-bottom:8px">2nd half stronger than 1st?</div>
+        <div style="font-size:9px;color:#475569;font-style:italic">Trajectory · H2 vs H1</div>
       </div>
+
     </div>
   </div>
 
