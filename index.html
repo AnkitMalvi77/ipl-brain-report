@@ -342,54 +342,86 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
   <div class="nav-tab" data-section="techdata">🔬 Technical Data</div>
 </nav>
 
-<!-- ═══════════════════════════════════════════════ TAB: INTRO / ABOUT -->
+<!-- ═══════════════════════════════════════════════ TAB: ABOUT THE MODEL -->
 <div id="sec-intro" class="page-section">
 
   <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
   <div class="intro-hero">
-    <div class="intro-eyebrow">IPL 2026 · Creative Brain Intelligence · TRIBE v2</div>
-    <h1 class="intro-hero-title">Before anyone watched these ads,<br><span>we asked the brain.</span></h1>
+    <div class="intro-eyebrow">TRIBE v2 · Meta AI Research · fMRI-Based Video Intelligence</div>
+    <h1 class="intro-hero-title">Predict how any video lands<br><span>in the human brain.</span></h1>
     <p class="intro-hero-sub">
-      32 IPL promos scored using TRIBE — Meta AI's model trained on thousands of real fMRI brain scans.
-      For every second of every film, we mapped which of 7 brain networks activated, and by how much.
-      This report turns that neural signal into 5 brand metrics that predict whether an ad will be
-      <strong style="color:#e2e8f0">noticed</strong>, <strong style="color:#e2e8f0">felt</strong>, and <strong style="color:#e2e8f0">remembered</strong>.
+      TRIBE is an AI model that predicts second-by-second neural activation from video — without a lab,
+      without panels, and without asking anyone how they felt.
+      It was trained directly on brain scans, so it measures what the brain
+      <em>actually</em> responds to, not what people say they responded to.
     </p>
-    <div class="intro-hero-cta" onclick="showSection('summary')">
-      See the full summary &nbsp;→
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:4px">
+      <div class="intro-hero-cta" onclick="showSection('summary')">See the demo analysis &nbsp;→</div>
+      <div class="intro-hero-cta" style="border-color:rgba(20,184,166,0.4);color:#5eead4" onclick="showSection('explorer')">Watch brain signal live &nbsp;→</div>
     </div>
   </div>
 
-  <!-- ── STATS ROW ─────────────────────────────────────────────────────────── -->
-  <div class="intro-stats">
-    <div class="intro-stat">
-      <div class="intro-stat-num" style="color:#818cf8">32</div>
-      <div class="intro-stat-label">Films Analyzed</div>
+  <!-- ── TWO-COL: WHAT IS TRIBE + WHY IT MATTERS ────────────────────────── -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+
+    <!-- What is TRIBE -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#818cf8;margin-bottom:12px">What is TRIBE?</div>
+      <div style="font-size:14px;font-weight:800;color:#e2e8f0;margin-bottom:10px;line-height:1.4">Transfer-based fMRI Brain Encoding — built by Meta AI Research</div>
+      <div style="font-size:12px;color:#94a3b8;line-height:1.75;margin-bottom:14px">
+        TRIBE was trained on thousands of real fMRI brain scans where human subjects watched video stimuli inside MRI scanners.
+        The model learned to predict which cortical regions activate — and by how much — for any frame of video.
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div style="width:6px;height:6px;border-radius:50%;background:#818cf8;margin-top:5px;flex-shrink:0"></div>
+          <div style="font-size:12px;color:#cbd5e1"><strong style="color:#e2e8f0">Architecture:</strong> Transformer-based video encoder fine-tuned on fMRI responses</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div style="width:6px;height:6px;border-radius:50%;background:#818cf8;margin-top:5px;flex-shrink:0"></div>
+          <div style="font-size:12px;color:#cbd5e1"><strong style="color:#e2e8f0">Output:</strong> 20,484 predicted cortical vertex activations per second of video</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div style="width:6px;height:6px;border-radius:50%;background:#818cf8;margin-top:5px;flex-shrink:0"></div>
+          <div style="font-size:12px;color:#cbd5e1"><strong style="color:#e2e8f0">Coverage:</strong> Whole cortex mapped to Yeo 7-network parcellation — neuroscience gold standard</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div style="width:6px;height:6px;border-radius:50%;background:#818cf8;margin-top:5px;flex-shrink:0"></div>
+          <div style="font-size:12px;color:#cbd5e1"><strong style="color:#e2e8f0">Input:</strong> Any video file — ads, films, sports, trailers, social content</div>
+        </div>
+      </div>
     </div>
-    <div class="intro-stat">
-      <div class="intro-stat-num" style="color:#38bdf8">7</div>
-      <div class="intro-stat-label">Brain Networks Tracked</div>
+
+    <!-- Why it matters -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#14b8a6;margin-bottom:12px">Why it matters for analytics</div>
+      <div style="font-size:14px;font-weight:800;color:#e2e8f0;margin-bottom:10px;line-height:1.4">Neural signals outperform stated preferences at predicting behaviour</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="background:rgba(248,113,113,0.07);border:1px solid rgba(248,113,113,0.2);border-radius:8px;padding:12px">
+            <div style="font-size:9.5px;font-weight:700;color:#f87171;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Traditional Research</div>
+            <div style="font-size:11px;color:#94a3b8;line-height:1.6">Post-hoc recall surveys<br>What people <em>say</em> they felt<br>Days or weeks to results<br>Expensive panels<br>Aggregate-level only</div>
+          </div>
+          <div style="background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.2);border-radius:8px;padding:12px">
+            <div style="font-size:9.5px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">TRIBE Brain Scoring</div>
+            <div style="font-size:11px;color:#cbd5e1;line-height:1.6">In-moment neural signal<br>What the brain <em>actually</em> did<br>Minutes of compute<br>Any video, any time<br>Per-second resolution</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="intro-stat">
-      <div class="intro-stat-num" style="color:#4ade80">1,114</div>
-      <div class="intro-stat-label">Seconds of Brain Data</div>
-    </div>
-    <div class="intro-stat">
-      <div class="intro-stat-num" style="color:#fb923c">5</div>
-      <div class="intro-stat-label">Brand Metrics per Film</div>
-    </div>
+
   </div>
 
   <!-- ── PIPELINE ──────────────────────────────────────────────────────────── -->
   <div class="pipe-wrap">
-    <div class="pipe-heading">The TRIBE Pipeline — How a video becomes a brain score</div>
+    <div class="pipe-heading">How it works — Video in, brain scores out</div>
     <div class="pipe-flow">
 
       <div class="pipe-box" style="border-color:#3b82f6">
         <div class="pipe-num" style="background:#3b82f6">1</div>
         <div class="pipe-icon">🎬</div>
-        <div class="pipe-title" style="color:#3b82f6">VIDEO INPUT</div>
-        <div class="pipe-desc">Any MP4 · 20 fps · HD<br>26 IPL promos &amp; benchmarks</div>
+        <div class="pipe-title" style="color:#3b82f6">ANY VIDEO</div>
+        <div class="pipe-desc">MP4 input · any genre<br>ads · sports · content</div>
       </div>
 
       <div class="pipe-arrow">›</div>
@@ -398,7 +430,7 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
         <div class="pipe-num" style="background:#8b5cf6">2</div>
         <div class="pipe-icon">🧠</div>
         <div class="pipe-title" style="color:#8b5cf6">TRIBE v2 MODEL</div>
-        <div class="pipe-desc">Meta AI · fMRI-trained<br>20,484 cortical vertices/sec</div>
+        <div class="pipe-desc">Meta AI Research<br>fMRI-trained transformer<br>20,484 vertices / sec</div>
       </div>
 
       <div class="pipe-arrow">›</div>
@@ -406,100 +438,130 @@ table.ts{width:100%;border-collapse:collapse;font-size:12px}
       <div class="pipe-box" style="border-color:#14b8a6">
         <div class="pipe-num" style="background:#14b8a6">3</div>
         <div class="pipe-icon">🔬</div>
-        <div class="pipe-title" style="color:#14b8a6">YEO-7 NETWORKS</div>
-        <div class="pipe-desc">7 functional brain regions<br>mapped per second, per film</div>
+        <div class="pipe-title" style="color:#14b8a6">YEO-7 MAPPING</div>
+        <div class="pipe-desc">Vertices grouped into<br>7 functional brain networks<br>per second of video</div>
       </div>
 
       <div class="pipe-arrow">›</div>
 
       <div class="pipe-box" style="border-color:#f97316">
         <div class="pipe-num" style="background:#f97316">4</div>
-        <div class="pipe-icon">📊</div>
-        <div class="pipe-title" style="color:#f97316">BRAND METRICS</div>
-        <div class="pipe-desc">Hook · Engagement · Emotion<br>Arc Score · Momentum</div>
+        <div class="pipe-icon">⚙️</div>
+        <div class="pipe-title" style="color:#f97316">SCORING LAYER</div>
+        <div class="pipe-desc">Networks → weighted<br>composite scores aligned<br>to brand objectives</div>
       </div>
 
       <div class="pipe-arrow">›</div>
 
       <div class="pipe-box" style="border-color:#22c55e">
         <div class="pipe-num" style="background:#22c55e">5</div>
-        <div class="pipe-icon">📋</div>
-        <div class="pipe-title" style="color:#22c55e">IPL BRAIN REPORT</div>
-        <div class="pipe-desc">Per-film scores · Timeline<br>Comparative dashboard</div>
+        <div class="pipe-icon">📊</div>
+        <div class="pipe-title" style="color:#22c55e">ACTIONABLE OUTPUT</div>
+        <div class="pipe-desc">Per-second timeline<br>5 brand metrics<br>Comparative scores</div>
       </div>
 
     </div>
 
-    <!-- Network chips -->
-    <div class="pipe-networks">
-      <span style="font-size:10px;color:var(--muted);font-weight:600;margin-right:4px;line-height:24px">7 networks →</span>
-      <span class="pipe-net-chip" style="border-color:#60a5fa;color:#60a5fa">Visual</span>
-      <span class="pipe-net-chip" style="border-color:#34d399;color:#34d399">Somotor</span>
-      <span class="pipe-net-chip" style="border-color:#818cf8;color:#818cf8">DAN</span>
-      <span class="pipe-net-chip" style="border-color:#fbbf24;color:#fbbf24">VAN</span>
-      <span class="pipe-net-chip" style="border-color:#f472b6;color:#f472b6">Limbic</span>
-      <span class="pipe-net-chip" style="border-color:#a78bfa;color:#a78bfa">FPN</span>
-      <span class="pipe-net-chip" style="border-color:#94a3b8;color:#94a3b8">DMN</span>
+    <!-- Network chips with descriptions -->
+    <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--border)">
+      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:10px">The 7 Yeo brain networks — each activated by different content types</div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px">
+        <div style="text-align:center">
+          <div class="pipe-net-chip" style="border-color:#60a5fa;color:#60a5fa;display:block;margin-bottom:5px">Visual</div>
+          <div style="font-size:8px;color:var(--muted);line-height:1.4">Motion, colour, faces on screen</div>
+        </div>
+        <div style="text-align:center">
+          <div class="pipe-net-chip" style="border-color:#34d399;color:#34d399;display:block;margin-bottom:5px">Somotor</div>
+          <div style="font-size:8px;color:var(--muted);line-height:1.4">Body, movement, energy</div>
+        </div>
+        <div style="text-align:center">
+          <div class="pipe-net-chip" style="border-color:#818cf8;color:#818cf8;display:block;margin-bottom:5px">DAN</div>
+          <div style="font-size:8px;color:var(--muted);line-height:1.4">Directed attention &amp; focus</div>
+        </div>
+        <div style="text-align:center">
+          <div class="pipe-net-chip" style="border-color:#fbbf24;color:#fbbf24;display:block;margin-bottom:5px">VAN</div>
+          <div style="font-size:8px;color:var(--muted);line-height:1.4">Alertness, surprise, novelty</div>
+        </div>
+        <div style="text-align:center">
+          <div class="pipe-net-chip" style="border-color:#f472b6;color:#f472b6;display:block;margin-bottom:5px">Limbic</div>
+          <div style="font-size:8px;color:var(--muted);line-height:1.4">Emotion, warmth &amp; recall</div>
+        </div>
+        <div style="text-align:center">
+          <div class="pipe-net-chip" style="border-color:#a78bfa;color:#a78bfa;display:block;margin-bottom:5px">FPN</div>
+          <div style="font-size:8px;color:var(--muted);line-height:1.4">Thinking, meaning-making</div>
+        </div>
+        <div style="text-align:center">
+          <div class="pipe-net-chip" style="border-color:#94a3b8;color:#94a3b8;display:block;margin-bottom:5px">DMN</div>
+          <div style="font-size:8px;color:var(--muted);line-height:1.4">Mind-wandering — want low</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- ── WHAT YOU CAN EXPLORE ───────────────────────────────────────────────── -->
-  <div class="intro-guide-heading">What you can explore in this report</div>
-  <div class="intro-guide-grid">
-
-    <div class="intro-guide-card" onclick="showSection('summary')">
-      <div class="intro-guide-icon">📋</div>
-      <div class="intro-guide-name">Summary</div>
-      <div class="intro-guide-desc">Your one-page briefing. Top 5 films, category rankings, key insights across all 32 promos, and strategic recommendations.</div>
-      <span class="intro-guide-link">Open Summary →</span>
+  <!-- ── THE 5 METRICS ─────────────────────────────────────────────────────── -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:20px">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#f97316;margin-bottom:4px">Scoring Layer</div>
+    <div style="font-size:13px;font-weight:800;color:#e2e8f0;margin-bottom:14px">5 brand metrics derived from the 7 networks</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+      <div style="border:1px solid rgba(56,189,248,0.3);border-radius:8px;padding:14px;background:rgba(56,189,248,0.04)">
+        <div style="font-size:18px;margin-bottom:6px">🎯</div>
+        <div style="font-size:11px;font-weight:800;color:#38bdf8;margin-bottom:4px">Hook</div>
+        <div style="font-size:9.5px;color:#94a3b8;line-height:1.5">Engagement in the opening window (first 20% of runtime). The skip decision happens here.</div>
+        <div style="font-size:9px;color:#475569;margin-top:6px;font-style:italic">DAN + VAN + Visual</div>
+      </div>
+      <div style="border:1px solid rgba(251,191,36,0.3);border-radius:8px;padding:14px;background:rgba(251,191,36,0.04)">
+        <div style="font-size:18px;margin-bottom:6px">💡</div>
+        <div style="font-size:11px;font-weight:800;color:#fbbf24;margin-bottom:4px">Engagement</div>
+        <div style="font-size:9.5px;color:#94a3b8;line-height:1.5">Sustained brain activation across the full runtime. Every second the brain is present.</div>
+        <div style="font-size:9px;color:#475569;margin-top:6px;font-style:italic">Weighted composite of all 7</div>
+      </div>
+      <div style="border:1px solid rgba(244,114,182,0.3);border-radius:8px;padding:14px;background:rgba(244,114,182,0.04)">
+        <div style="font-size:18px;margin-bottom:6px">❤️</div>
+        <div style="font-size:11px;font-weight:800;color:#f472b6;margin-bottom:4px">Emotion</div>
+        <div style="font-size:9.5px;color:#94a3b8;line-height:1.5">Limbic network activation — warmth, feeling, connection. Drives brand memory and recall.</div>
+        <div style="font-size:9px;color:#475569;margin-top:6px;font-style:italic">Limbic + Social</div>
+      </div>
+      <div style="border:1px solid rgba(167,139,250,0.3);border-radius:8px;padding:14px;background:rgba(167,139,250,0.04)">
+        <div style="font-size:18px;margin-bottom:6px">📈</div>
+        <div style="font-size:11px;font-weight:800;color:#a78bfa;margin-bottom:4px">Arc Score</div>
+        <div style="font-size:9.5px;color:#94a3b8;line-height:1.5">Does the film build toward the brand close? √(Momentum × Ending). Predicts brand recall.</div>
+        <div style="font-size:9px;color:#475569;margin-top:6px;font-style:italic">Temporal trajectory</div>
+      </div>
+      <div style="border:1px solid rgba(52,211,153,0.3);border-radius:8px;padding:14px;background:rgba(52,211,153,0.04)">
+        <div style="font-size:18px;margin-bottom:6px">🚀</div>
+        <div style="font-size:11px;font-weight:800;color:#34d399;margin-bottom:4px">Momentum</div>
+        <div style="font-size:9.5px;color:#94a3b8;line-height:1.5">Second half stronger than first? Crescendo films outperform firecracker films on memory.</div>
+        <div style="font-size:9px;color:#475569;margin-top:6px;font-style:italic">2nd half vs 1st half</div>
+      </div>
     </div>
-
-    <div class="intro-guide-card" onclick="showSection('table')">
-      <div class="intro-guide-icon">🏆</div>
-      <div class="intro-guide-name">Brand Scorecard</div>
-      <div class="intro-guide-desc">All 32 films ranked by Brain Score. Every metric at a glance — Hook, Engagement, Emotion, Arc, Momentum. Click any film to explore it.</div>
-      <span class="intro-guide-link">Open Scorecard →</span>
-    </div>
-
-    <div class="intro-guide-card" onclick="showSection('explorer')">
-      <div class="intro-guide-icon">🎬</div>
-      <div class="intro-guide-name">Film Explorer</div>
-      <div class="intro-guide-desc">Select any film and press play. The brain signal graph reveals in real time as the video plays — see exactly where attention peaks and drops.</div>
-      <span class="intro-guide-link">Open Explorer →</span>
-    </div>
-
-    <div class="intro-guide-card" onclick="showSection('compare')">
-      <div class="intro-guide-icon">📊</div>
-      <div class="intro-guide-name">Compare Films</div>
-      <div class="intro-guide-desc">Overlay any 2–5 films on one chart. Compare brain signal trend lines — who holds attention longer, who starts stronger, who builds better.</div>
-      <span class="intro-guide-link">Open Compare →</span>
-    </div>
-
-    <div class="intro-guide-card" onclick="showSection('duration')">
-      <div class="intro-guide-icon">⏱</div>
-      <div class="intro-guide-name">Duration Lab</div>
-      <div class="intro-guide-desc">Does length matter? Compare 20s vs 30s vs 60s films on Hook, Engagement and Arc. Find the optimal duration for each placement type.</div>
-      <span class="intro-guide-link">Open Duration Lab →</span>
-    </div>
-
-    <div class="intro-guide-card" onclick="showSection('howto')">
-      <div class="intro-guide-icon">📖</div>
-      <div class="intro-guide-name">How to Read</div>
-      <div class="intro-guide-desc">New to brain data? This tab explains every metric — what it measures, how it's calculated, and what a good score looks like for your creative.</div>
-      <span class="intro-guide-link">Read the Guide →</span>
-    </div>
-
   </div>
 
-  <!-- ── BOTTOM TEASER ─────────────────────────────────────────────────────── -->
-  <div style="margin-top:24px;background:linear-gradient(135deg,rgba(99,102,241,0.07),rgba(20,184,166,0.07));border:1px solid rgba(99,102,241,0.18);border-radius:12px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px">
-    <div>
-      <div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Top performer in this analysis</div>
-      <div style="font-size:18px;font-weight:900;color:#e2e8f0">Fearless Prodigies II &nbsp;<span style="font-size:14px;color:#4ade80;font-weight:700">68.6 Brain Score</span></div>
-      <div style="font-size:11px;color:var(--muted);margin-top:3px">Benchmark average is 44.7 · IPL 2026 average is 47.0</div>
+  <!-- ── THIS DEMO ─────────────────────────────────────────────────────────── -->
+  <div style="background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(20,184,166,0.06));border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:20px 24px;display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+    <div style="flex:1;min-width:260px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#818cf8;margin-bottom:8px">This analysis — what's in the demo</div>
+      <div style="font-size:13px;font-weight:800;color:#e2e8f0;margin-bottom:8px">32 videos across 5 categories, scored using TRIBE v2</div>
+      <div style="font-size:12px;color:#94a3b8;line-height:1.7">
+        IPL 2026 promos are used here as the <strong style="color:#cbd5e1">demo dataset</strong> — a consistent, high-quality set of video creative that illustrates what the model can surface.
+        The same pipeline applies to any video content: OTT promos, brand films, sports highlights, social cuts.
+      </div>
     </div>
-    <div onclick="showSection('summary')" style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.4);border-radius:8px;padding:10px 24px;font-size:12px;font-weight:700;color:#a5b4fc;cursor:pointer;white-space:nowrap">
-      View full analysis →
+    <div style="display:flex;flex-direction:column;gap:8px;min-width:200px">
+      <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,0.2);border-radius:6px;padding:8px 14px">
+        <span style="font-size:11px;color:#94a3b8">Videos analyzed</span>
+        <span style="font-size:14px;font-weight:800;color:#818cf8">32</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,0.2);border-radius:6px;padding:8px 14px">
+        <span style="font-size:11px;color:#94a3b8">Seconds of brain data</span>
+        <span style="font-size:14px;font-weight:800;color:#14b8a6">1,114</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,0.2);border-radius:6px;padding:8px 14px">
+        <span style="font-size:11px;color:#94a3b8">Content categories</span>
+        <span style="font-size:14px;font-weight:800;color:#f97316">5</span>
+      </div>
+      <div onclick="showSection('summary')" style="margin-top:4px;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.4);border-radius:8px;padding:10px 16px;font-size:12px;font-weight:700;color:#a5b4fc;cursor:pointer;text-align:center">
+        Explore the analysis →
+      </div>
     </div>
   </div>
 
